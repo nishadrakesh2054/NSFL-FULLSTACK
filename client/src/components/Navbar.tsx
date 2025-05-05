@@ -53,7 +53,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-blue-900 text-white sticky top-0 z-50">
+    <nav className="bg-[#0049be] text-white sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="text-2xl font-bold">

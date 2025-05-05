@@ -40,10 +40,10 @@ const Sponsors = () => {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
             <div className="mb-6 md:mb-0">
-              <h2 className="text-4xl font-bold text-gray-900 mb-2">
+              <h2 className="text-4xl font-bold text-[#0049be] mb-2">
                 Our Valuable Sponsors
               </h2>
-              <p className="text-md text-primary-800">
+              <p className="text-md text-primary-900">
                 Join our growing family of sponsors and be part of the future of
                 football in Nepal{" "}
               </p>
@@ -55,33 +55,31 @@ const Sponsors = () => {
             />
           </div>
 
-            {/* Sponsors Grid */}
-            <div className="bg-white rounded-xl  p-8">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-center">
-                {sponsors.map((sponsor) => (
-                  <a
-                    key={sponsor.id}
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center group"
-                  >
-             
-                    <div className="bg-white shadow-lg p-4 rounded-lg w-full h-32 flex items-center justify-center mb-3">
-                      <img
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        className="max-h-24 max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                      />
-                    </div>
-                    <span className="text-sm text-center text-gray-700 font-medium group-hover:text-red-600 transition-colors">
-                      {sponsor.name}
-                    </span>
-                  </a>
-                ))}
-              </div>
+          {/* Sponsors Grid */}
+          <div className="bg-white rounded-xl  p-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-center">
+              {sponsors.map((sponsor) => (
+                <a
+                  key={sponsor.id}
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center group"
+                >
+                  <div className="bg-white shadow-lg p-4 rounded-lg w-full h-32 flex items-center justify-center mb-3">
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      className="max-h-24 max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                  </div>
+                  <span className="text-sm text-center text-gray-700 font-medium group-hover:text-red-600 transition-colors">
+                    {sponsor.name}
+                  </span>
+                </a>
+              ))}
             </div>
-        
+          </div>
         </div>
       </section>
     </>

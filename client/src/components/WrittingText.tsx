@@ -38,7 +38,7 @@ const WrittingText = () => {
   }, [charIndex, isDeleting, index]);
 
   return (
-    <div className="w-full bg-blue-950 text-white py-4 shadow-inner">
+    <div className="w-full bg-[#0049be] text-white py-4 shadow-inner">
       <div className="container mx-auto px-4 flex items-center space-x-4">
         <p className="text-yellow-400 font-semibold flex items-center gap-2 text-sm md:text-base">
           <FaStar className="text-yellow-400" />

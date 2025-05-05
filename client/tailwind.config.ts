@@ -5,14 +5,9 @@ export default {
     extend: {
       colors: {
         primary: {
-          800: "#fec802", // Yellow
-          900: "#0049be", // Blue
+          yellow: "#fec802",
+          blue: "#0049be",
         },
-      },
-      fontFamily: {
-        sans: ["Roboto", "sans-serif"],
-        poppins: ["Poppins", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
       },
     },
   },
