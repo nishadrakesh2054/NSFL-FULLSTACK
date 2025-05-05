@@ -1,240 +1,4 @@
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import React from "react";
-// import {
-//   FaTrophy,
-//   FaUsers,
-//   FaCalendarAlt,
-//   FaMapMarkerAlt,
-//   FaUserTie,
-// } from "react-icons/fa";
-
-// interface Team {
-//   id: number;
-//   name: string;
-//   logo: string;
-//   manager: string;
-//   founded: number;
-//   stadium: string;
-//   players: Player[];
-//   trophies: number;
-//   leaguePosition: number;
-//   matchesPlayed: number;
-//   points: number;
-// }
-
-// interface Player {
-//   id: number;
-//   name: string;
-//   position: string;
-//   number: number;
-//   nationality: string;
-// }
-
-// const Teams = () => {
-//   const navigate = useNavigate();
-//   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
-
-//   const teams: Team[] = [
-//     {
-//       id: 1,
-//       name: "Blue Eagles FC",
-//       logo: "https://via.placeholder.com/150",
-//       manager: "John Smith",
-//       founded: 1920,
-//       stadium: "Eagle Stadium",
-//       trophies: 15,
-//       leaguePosition: 1,
-//       matchesPlayed: 30,
-//       points: 75,
-//       players: [
-//         {
-//           id: 1,
-//           name: "David Johnson",
-//           position: "Forward",
-//           number: 9,
-//           nationality: "England",
-//         },
-//         {
-//           id: 2,
-//           name: "Michael Brown",
-//           position: "Midfielder",
-//           number: 8,
-//           nationality: "Spain",
-//         },
-//         {
-//           id: 3,
-//           name: "James Wilson",
-//           position: "Defender",
-//           number: 4,
-//           nationality: "Brazil",
-//         },
-//       ],
-//     },
-//     {
-//       id: 2,
-//       name: "Red Lions FC",
-//       logo: "https://via.placeholder.com/150",
-//       manager: "Sarah Williams",
-//       founded: 1935,
-//       stadium: "Lion Arena",
-//       trophies: 12,
-//       leaguePosition: 2,
-//       matchesPlayed: 30,
-//       points: 72,
-//       players: [
-//         {
-//           id: 4,
-//           name: "Robert Taylor",
-//           position: "Forward",
-//           number: 10,
-//           nationality: "France",
-//         },
-//         {
-//           id: 5,
-//           name: "Thomas Anderson",
-//           position: "Midfielder",
-//           number: 6,
-//           nationality: "Germany",
-//         },
-//         {
-//           id: 6,
-//           name: "William Clark",
-//           position: "Defender",
-//           number: 5,
-//           nationality: "Italy",
-//         },
-//       ],
-//     },
-//     {
-//       id: 3,
-//       name: "Green Tigers FC",
-//       logo: "https://via.placeholder.com/150",
-//       manager: "Mark Davis",
-//       founded: 1945,
-//       stadium: "Tiger Ground",
-//       trophies: 8,
-//       leaguePosition: 3,
-//       matchesPlayed: 30,
-//       points: 68,
-//       players: [
-//         {
-//           id: 7,
-//           name: "Daniel White",
-//           position: "Forward",
-//           number: 7,
-//           nationality: "Portugal",
-//         },
-//         {
-//           id: 8,
-//           name: "Joseph Martin",
-//           position: "Midfielder",
-//           number: 11,
-//           nationality: "Netherlands",
-//         },
-//         {
-//           id: 9,
-//           name: "Charles Lee",
-//           position: "Defender",
-//           number: 3,
-//           nationality: "Argentina",
-//         },
-//       ],
-//     },
-//   ];
-
-//   return (
-//     <div className="min-h-screen bg-gray-100 py-8">
-//       <div className="container mx-auto px-4">
-//         <h1
-//           className="text-4xl font-bold mb-8 text-center text-gray-800"
-//           data-aos="fade-up"
-//         >
-//           Premier League Teams
-//         </h1>
-
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//           {teams.map((team) => (
-//             <div
-//               key={team.id}
-//               className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
-//               data-aos="fade-up"
-//               data-aos-delay={team.id * 100}
-//             >
-//               <div className="relative">
-//                 <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-//                   #{team.leaguePosition}
-//                 </div>
-//                 <div className="h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
-//                   <img
-//                     src={team.logo}
-//                     alt={`${team.name} logo`}
-//                     className="w-32 h-32 object-contain"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="p-6">
-//                 <h2 className="text-2xl font-bold mb-2 text-center text-gray-800">
-//                   {team.name}
-//                 </h2>
-
-//                 <div className="grid grid-cols-2 gap-4 mb-6">
-//                   <div className="flex items-center space-x-2 text-gray-600">
-//                     <FaUserTie className="text-blue-600" />
-//                     <span>{team.manager}</span>
-//                   </div>
-//                   <div className="flex items-center space-x-2 text-gray-600">
-//                     <FaCalendarAlt className="text-blue-600" />
-//                     <span>{team.founded}</span>
-//                   </div>
-//                   <div className="flex items-center space-x-2 text-gray-600">
-//                     <FaMapMarkerAlt className="text-blue-600" />
-//                     <span>{team.stadium}</span>
-//                   </div>
-//                   <div className="flex items-center space-x-2 text-gray-600">
-//                     <FaTrophy className="text-blue-600" />
-//                     <span>{team.trophies} Trophies</span>
-//                   </div>
-//                 </div>
-
-//                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
-//                   <div className="grid grid-cols-2 gap-4">
-//                     <div className="text-center">
-//                       <p className="text-sm text-gray-500">Matches Played</p>
-//                       <p className="text-xl font-bold text-gray-800">
-//                         {team.matchesPlayed}
-//                       </p>
-//                     </div>
-//                     <div className="text-center">
-//                       <p className="text-sm text-gray-500">Points</p>
-//                       <p className="text-xl font-bold text-gray-800">
-//                         {team.points}
-//                       </p>
-//                     </div>
-//                   </div>
-//                 </div>
-
-//                 <button
-//                   onClick={() => navigate(`/teams/${team.id}`)}
-//                   className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center justify-center space-x-2"
-//                 >
-//                   <FaUsers />
-//                   <span>View Squad</span>
-//                 </button>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Teams;
-
-
-import React from 'react';
+import React from "react";
 
 import { useNavigate } from "react-router-dom";
 import { FaUsers, FaCalendarAlt, FaHome, FaUserTie } from "react-icons/fa";
@@ -246,14 +10,14 @@ interface Team {
   manager: string;
   founded: number;
   stadium: string;
-  city: string;
-  capacity: number;
+
   players: Player[];
 }
 
 interface Player {
   id: number;
   name: string;
+  img: string;
   position: string;
   number: number;
   nationality: string;
@@ -268,90 +32,293 @@ const Teams = () => {
   const teams: Team[] = [
     {
       id: 1,
-      name: "Blue Eagles FC",
-      logo: "/images/teams/blue-eagles.png",
-      manager: "John Smith",
-      founded: 1920,
-      stadium: "Eagle Stadium",
-      city: "New York",
-      capacity: 45000,
+      name: "Manang Marshyangdi Club",
+      logo: "/image/6-98x98.png",
+      manager: "Pradeep Humagain",
+      founded: 1982,
+      stadium: "ANFA Complex",
+
       players: [
         {
           id: 1,
-          name: "David Johnson",
+          name: "Bimal Gharti Magar",
           position: "Forward",
-          number: 9,
-          nationality: "England",
-          age: 28,
-          height: "1.85m",
-          weight: "78kg"
+          img: "/image/img-1-2.jpg",
+          number: 10,
+          nationality: "Nepal",
+          age: 26,
+          height: "1.75m",
+          weight: "70kg",
         },
-        // More players...
+        {
+          id: 2,
+          name: "Sujal Shrestha",
+          position: "Midfielder",
+          img: "/image/img-1-3.jpg",
+          number: 7,
+          nationality: "Nepal",
+          age: 24,
+          height: "1.72m",
+          weight: "68kg",
+        },
       ],
     },
-    // More teams...
+    {
+      id: 2,
+      name: "Machhindra Football Club",
+      logo: "/image/7-98x98.png",
+      manager: "Pratik Pandey",
+      founded: 1973,
+      stadium: "Dasharath Rangasala",
+
+      players: [
+        {
+          id: 1,
+          name: "Anjan Bista",
+          position: "Forward",
+          img: "/image/img-1-4.jpg",
+          number: 11,
+          nationality: "Nepal",
+          age: 25,
+          height: "1.78m",
+          weight: "72kg",
+        },
+        {
+          id: 2,
+          name: "Bishal Rai",
+          position: "Midfielder",
+          img: "/image/img-1-3.jpg",
+          number: 8,
+          nationality: "Nepal",
+          age: 27,
+          height: "1.70m",
+          weight: "65kg",
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: "Three Star Club",
+      logo: "/image/8-98x98.png",
+      manager: "Megh Raj KC",
+      founded: 1954,
+      stadium: "ANFA Complex",
+
+      players: [
+        {
+          id: 1,
+          name: "Nawayug Shrestha",
+          position: "Forward",
+          img: "/image/img-1-2.jpg",
+          number: 9,
+          nationality: "Nepal",
+          age: 29,
+          height: "1.80m",
+          weight: "75kg",
+        },
+        {
+          id: 2,
+          name: "Rohit Chand",
+          position: "Defender",
+          img: "/image/img-1-3.jpg",
+          number: 5,
+          nationality: "Nepal",
+          age: 30,
+          height: "1.82m",
+          weight: "78kg",
+        },
+      ],
+    },
+    {
+      id: 4,
+      name: "Kathmandu Rayzrs",
+      logo: "/image/8-98x98.png",
+      manager: "Bal Gopal Maharjan",
+      founded: 2019,
+      stadium: "Dasharath Rangasala",
+
+      players: [
+        {
+          id: 1,
+          name: "Bharat Khawas",
+          position: "Forward",
+          img: "/image/img-1-2.jpg",
+          number: 17,
+          nationality: "Nepal",
+          age: 31,
+          height: "1.68m",
+          weight: "65kg",
+        },
+        {
+          id: 2,
+          name: "Tej Tamang",
+          position: "Defender",
+          img: "/image/img-1-3.jpg",
+          number: 3,
+          nationality: "Nepal",
+          age: 25,
+          height: "1.75m",
+          weight: "70kg",
+        },
+      ],
+    },
+    {
+      id: 5,
+      name: "Church Boys United",
+      logo: "/image/7-98x98.png",
+      manager: "Kumar Thapa",
+      founded: 1999,
+      stadium: "ANFA Complex",
+
+      players: [
+        {
+          id: 1,
+          name: "Aashish Lama",
+          position: "Midfielder",
+          img: "/image/img-1-2.jpg",
+          number: 14,
+          nationality: "Nepal",
+          age: 23,
+          height: "1.71m",
+          weight: "67kg",
+        },
+        {
+          id: 2,
+          name: "Dinesh Rajbanshi",
+          position: "Defender",
+          img: "/image/img-1-3.jpg",
+          number: 4,
+          nationality: "Nepal",
+          age: 26,
+          height: "1.76m",
+          weight: "72kg",
+        },
+      ],
+    },
+    {
+      id: 6,
+      name: "Jawalakhel Youth Club",
+      logo: "/image/6-98x98.png",
+      manager: "Yogesh Suwal",
+      founded: 1972,
+      stadium: "Jawalakhel Ground",
+
+      players: [
+        {
+          id: 1,
+          name: "George Prince Karki",
+          position: "Forward",
+          img: "/image/img-1-2.jpg",
+          number: 20,
+          nationality: "Nepal",
+          age: 22,
+          height: "1.73m",
+          weight: "69kg",
+        },
+        {
+          id: 2,
+          name: "Sesehang Angdembe",
+          position: "Midfielder",
+          img: "/image/img-1-3.jpg",
+          number: 6,
+          nationality: "Nepal",
+          age: 24,
+          height: "1.69m",
+          weight: "66kg",
+        },
+      ],
+    },
   ];
 
   return (
     <>
-    <div className="bg-gray-50 min-h-screen">
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">NSFL Teams</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore all teams participating in the National Soccer Football League
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teams.map((team) => (
-            <div
-              key={team.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-            >
-              <div className="bg-gradient-to-r from-blue-800 to-indigo-800 p-6 text-white text-center">
-                <div className="flex justify-center mb-4">
-                  <img
-                    src={team.logo}
-                    alt={`${team.name} logo`}
-                    className="w-24 h-24 object-contain"
-                  />
-                </div>
-                <h2 className="text-2xl font-bold">{team.name}</h2>
-              </div>
-              
-              <div className="p-6">
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <FaUserTie className="text-gray-500 mr-2" />
-                    <span className="text-gray-700">{team.manager}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaHome className="text-gray-500 mr-2" />
-                    <span className="text-gray-700">{team.stadium}, {team.city}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaUsers className="text-gray-500 mr-2" />
-                    <span className="text-gray-700">{team.capacity.toLocaleString()} seats</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaCalendarAlt className="text-gray-500 mr-2" />
-                    <span className="text-gray-700">Founded {team.founded}</span>
-                  </div>
-                </div>
-                
-                <button
-                  onClick={() => navigate(`/teams/${team.id}`)}
-                  className="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
-                >
-                  View Squad
-                </button>
-              </div>
-            </div>
-          ))}
+      <div
+        className="relative py-24 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/image/about.jpeg')",
+        }}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            NSFL Teams
+          </h1>
+          <div className="text-white flex justify-center items-center space-x-2">
+            <span>Home</span>
+            <span>/</span>
+            <span className="text-red-500">Teams</span>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="bg-gray-50 min-h-screen">
+        <div className="container mx-auto px-4 py-">
+          <div className="text-center py-10">
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Explore all teams participating in the National Soccer Football
+              League
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teams.map((team) => (
+              <div
+                key={team.id}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              >
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 text-white text-center">
+                  <div className="flex justify-center mb-4">
+                    <img
+                      src={team.logo}
+                      alt={`${team.name} logo`}
+                      className="w-24 h-24 object-contain"
+                    />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    {team.name}
+                  </h2>
+                </div>
+
+                <div className="p-6">
+                  <div className="space-y-3">
+                    {/* Founded */}
+                    <div className="flex items-center space-x-1">
+                      <FaCalendarAlt className="text-gray-500" />
+                      <span className="text-gray-600 font-medium">
+                        Founded:
+                      </span>
+                      <span className="text-gray-700">{team.founded}</span>
+                    </div>
+
+                    {/* Stadium */}
+                    <div className="flex items-center space-x-1">
+                      <FaHome className="text-gray-500" />
+                      <span className="text-gray-600 font-medium">
+                        Stadium:
+                      </span>
+                      <span className="text-gray-700">{team.stadium}</span>
+                    </div>
+
+                    {/* Coach */}
+                    <div className="flex items-center space-x-1">
+                      <FaUserTie className="text-gray-500" />
+                      <span className="text-gray-600 font-medium">Coach:</span>
+                      <span className="text-gray-700">{team.manager}</span>
+                    </div>
+                  </div>
+
+                  {/* Button */}
+                  <button
+                    onClick={() => navigate(`/teams/${team.id}`)}
+                    className="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
+                  >
+                    View Squad
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

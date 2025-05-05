@@ -1,18 +1,55 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
+import {
+  FaHome,
+  FaUsers,
+  FaCalendarAlt,
+  FaTable,
+  FaNewspaper,
+  FaTv,
+} from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Teams", path: "/teams" },
-    { name: "Matches", path: "/matches" },
-    { name: "Table", path: "/table" },
-    { name: "News", path: "/news" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "/", icon: <FaHome className="inline-block mr-2" /> },
+    // {
+    //   name: "About",
+    //   path: "/about",
+    //   icon: <FaInfoCircle className="inline-block mr-2" />,
+    // },
+    {
+      name: "Teams",
+      path: "/teams",
+      icon: <FaUsers className="inline-block mr-2" />,
+    },
+    {
+      name: "Fixture",
+      path: "/fixture",
+      icon: <FaCalendarAlt className="inline-block mr-2" />,
+    },
+    {
+      name: "Table",
+      path: "/table",
+      icon: <FaTable className="inline-block mr-2" />,
+    },
+    {
+      name: "News",
+      path: "/news",
+      icon: <FaNewspaper className="inline-block mr-2" />,
+    },
+    // {
+    //   name: "Contact",
+    //   path: "/contact",
+    //   icon: <FaEnvelope className="inline-block mr-2" />,
+    // },
+    {
+      name: "Live Match",
+      path: "/live-match",
+      icon: <FaTv className="inline-block mr-2" />,
+    },
   ];
 
   return (
@@ -29,8 +66,9 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="hover:text-blue-300 transition-colors"
+                className="hover:text-blue-300 transition-colors flex items-center"
               >
+                {item.icon}
                 {item.name}
               </Link>
             ))}
@@ -70,9 +108,10 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="block py-2 hover:text-blue-300 transition-colors"
+                className=" py-2 hover:text-blue-300 transition-colors flex items-center"
                 onClick={() => setIsOpen(false)}
               >
+                {item.icon}
                 {item.name}
               </Link>
             ))}

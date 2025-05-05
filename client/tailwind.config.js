@@ -5,8 +5,8 @@ export default {
     extend: {
       colors: {
         primary: {
-          900: "#1e3a8a",
-          800: "#1e40af",
+          800: "#fec802", // Yellow
+          900: "#0049be", // Blue
         },
       },
       fontFamily: {

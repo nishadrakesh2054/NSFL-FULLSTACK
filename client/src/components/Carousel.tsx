@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
+import LiveButton from "./LiveButton";
 
 interface CarouselImage {
   url: string;
@@ -78,10 +79,16 @@ const Carousel = () => {
                     {image.description}
                   </p>
 
-                  <Button
-                    title="Join The League"
-                    onClick={() => alert("Clicked!")}
-                  />
+                  <div className="flex flex-col md:flex-row gap-4 items-center justify-center md:justify-end">
+                    <LiveButton
+                      title="Watch Live Video"
+                      onClick={() => alert("Clicked!")}
+                    />
+                    <Button
+                      title="Join The League"
+                      onClick={() => alert("Clicked!")}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

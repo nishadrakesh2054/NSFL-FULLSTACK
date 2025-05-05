@@ -1,218 +1,13 @@
-// import React from "react";
-// import { FaTrophy, FaArrowCircleUp, FaArrowCircleDown } from "react-icons/fa";
-
-// interface TeamStanding {
-//   position: number;
-//   team: string;
-//   played: number;
-//   won: number;
-//   drawn: number;
-//   lost: number;
-//   goalsFor: number;
-//   goalsAgainst: number;
-//   goalDifference: number;
-//   points: number;
-// }
-
-// const Table = () => {
-//   const standings: TeamStanding[] = [
-//     {
-//       position: 1,
-//       team: "Blue Eagles FC",
-//       played: 10,
-//       won: 7,
-//       drawn: 2,
-//       lost: 1,
-//       goalsFor: 22,
-//       goalsAgainst: 8,
-//       goalDifference: 14,
-//       points: 23,
-//     },
-//     {
-//       position: 2,
-//       team: "Red Lions FC",
-//       played: 10,
-//       won: 6,
-//       drawn: 3,
-//       lost: 1,
-//       goalsFor: 18,
-//       goalsAgainst: 10,
-//       goalDifference: 8,
-//       points: 21,
-//     },
-//     {
-//       position: 3,
-//       team: "Green Tigers FC",
-//       played: 10,
-//       won: 5,
-//       drawn: 2,
-//       lost: 3,
-//       goalsFor: 15,
-//       goalsAgainst: 12,
-//       goalDifference: 3,
-//       points: 17,
-//     },
-//   ];
-
-//   const getRowColor = (position: number) => {
-//     if (position === 1) return "bg-gradient-to-r from-green-50 to-green-100";
-//     if (position === 2) return "bg-gradient-to-r from-green-50 to-green-100";
-//     if (position === 3) return "bg-gradient-to-r from-blue-50 to-blue-100";
-//     return "";
-//   };
-
-//   const getBadge = (position: number) => {
-//     if (position === 1)
-//       return (
-//         <span className="ml-2 inline-flex items-center text-sm text-yellow-600">
-//           <FaTrophy className="mr-1 text-yellow-500" /> Champions
-//         </span>
-//       );
-//     if (position === 2)
-//       return (
-//         <span className="ml-2 text-sm text-green-600 inline-flex items-center">
-//           <FaArrowCircleUp className="mr-1" /> Promotion
-//         </span>
-//       );
-//     if (position === 3)
-//       return (
-//         <span className="ml-2 text-sm text-blue-600 inline-flex items-center">
-//           <FaArrowCircleUp className="mr-1" /> Europa League
-//         </span>
-//       );
-//     return null;
-//   };
-
-//   return (
-//     <>
-//       <div
-//         className="relative py-24 bg-cover bg-center"
-//         style={{
-//           backgroundImage:
-//             "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/image/about.jpeg')",
-//         }}
-//       >
-//         <div className="container mx-auto px-4 text-center">
-//           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-//             NSFL League Standings
-//           </h1>
-//           <div className="text-white flex justify-center items-center space-x-2">
-//             <span>
-//               {" "}
-//               We'd love to hear from you! Reach out for inquiries, partnerships,
-//               or just to say hello.
-//             </span>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="container mx-auto px-4 py-10">
-//         <h1
-//           className="text-4xl font-extrabold mb-10 text-center text-gray-800"
-//           data-aos="fade-up"
-//         >
-//           League Table
-//         </h1>
-
-//         <div className="bg-white shadow-xl rounded-xl overflow-hidden">
-//           <div className="overflow-x-auto">
-//             <table className="min-w-full text-sm text-gray-700">
-//               <thead className="bg-gradient-to-r from-blue-800 to-indigo-800 text-white">
-//                 <tr>
-//                   {[
-//                     "Pos",
-//                     "Team",
-//                     "P",
-//                     "W",
-//                     "D",
-//                     "L",
-//                     "GF",
-//                     "GA",
-//                     "GD",
-//                     "Pts",
-//                   ].map((heading, i) => (
-//                     <th
-//                       key={i}
-//                       className="px-4 py-3 text-xs font-semibold tracking-wider text-center"
-//                     >
-//                       {heading}
-//                     </th>
-//                   ))}
-//                 </tr>
-//               </thead>
-//               <tbody className="divide-y divide-gray-200">
-//                 {standings.map((team) => (
-//                   <tr
-//                     key={team.position}
-//                     className={`hover:bg-gray-50 transition ${getRowColor(
-//                       team.position
-//                     )}`}
-//                   >
-//                     <td className="text-center py-3 font-bold text-gray-900">
-//                       {team.position}
-//                     </td>
-//                     <td className="text-left px-4 py-3 font-medium text-gray-800 whitespace-nowrap">
-//                       {team.team}
-//                       {getBadge(team.position)}
-//                     </td>
-//                     <td className="text-center">{team.played}</td>
-//                     <td className="text-center">{team.won}</td>
-//                     <td className="text-center">{team.drawn}</td>
-//                     <td className="text-center">{team.lost}</td>
-//                     <td className="text-center">{team.goalsFor}</td>
-//                     <td className="text-center">{team.goalsAgainst}</td>
-//                     <td className="text-center">
-//                       {team.goalDifference >= 0
-//                         ? `+${team.goalDifference}`
-//                         : team.goalDifference}
-//                     </td>
-//                     <td className="text-center font-bold text-gray-900">
-//                       {team.points}
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         </div>
-
-//         {/* Legend Cards */}
-//         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-//           <div className="flex items-start p-6 rounded-xl bg-green-50 shadow-sm">
-//             <FaTrophy className="text-green-500 text-xl mr-3 mt-1" />
-//             <div>
-//               <h3 className="font-bold text-green-800">Champions League</h3>
-//               <p className="text-sm text-green-700">Top 2 teams qualify</p>
-//             </div>
-//           </div>
-//           <div className="flex items-start p-6 rounded-xl bg-blue-50 shadow-sm">
-//             <FaArrowCircleUp className="text-blue-500 text-xl mr-3 mt-1" />
-//             <div>
-//               <h3 className="font-bold text-blue-800">Europa League</h3>
-//               <p className="text-sm text-blue-700">3rd place qualifies</p>
-//             </div>
-//           </div>
-//           <div className="flex items-start p-6 rounded-xl bg-red-50 shadow-sm">
-//             <FaArrowCircleDown className="text-red-500 text-xl mr-3 mt-1" />
-//             <div>
-//               <h3 className="font-bold text-red-800">Relegation</h3>
-//               <p className="text-sm text-red-700">Bottom 2 teams relegated</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Table;
-
-import React from "react";
+import React, { useState } from "react";
 import {
   FaTrophy,
   FaArrowCircleUp,
   FaArrowCircleDown,
   FaCrown,
   FaMedal,
+  FaHome,
+  FaRoad,
+  FaChartLine,
 } from "react-icons/fa";
 
 interface TeamStanding {
@@ -229,9 +24,28 @@ interface TeamStanding {
   form?: string[]; // Array of last 5 match results (W, D, L)
   promotion?: boolean;
   relegation?: boolean;
+  homeRecord?: {
+    played: number;
+    won: number;
+    drawn: number;
+    lost: number;
+    goalsFor: number;
+    goalsAgainst: number;
+  };
+  awayRecord?: {
+    played: number;
+    won: number;
+    drawn: number;
+    lost: number;
+    goalsFor: number;
+    goalsAgainst: number;
+  };
+  logo?: string;
 }
 
 const Table = () => {
+  const [activeFilter, setActiveFilter] = useState("overall");
+
   const standings: TeamStanding[] = [
     {
       position: 1,
@@ -246,6 +60,23 @@ const Table = () => {
       points: 23,
       form: ["W", "W", "D", "W", "L"],
       promotion: true,
+      homeRecord: {
+        played: 5,
+        won: 4,
+        drawn: 1,
+        lost: 0,
+        goalsFor: 12,
+        goalsAgainst: 3,
+      },
+      awayRecord: {
+        played: 5,
+        won: 3,
+        drawn: 1,
+        lost: 1,
+        goalsFor: 10,
+        goalsAgainst: 5,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 2,
@@ -260,6 +91,23 @@ const Table = () => {
       points: 21,
       form: ["W", "D", "W", "W", "D"],
       promotion: true,
+      homeRecord: {
+        played: 5,
+        won: 4,
+        drawn: 1,
+        lost: 0,
+        goalsFor: 11,
+        goalsAgainst: 4,
+      },
+      awayRecord: {
+        played: 5,
+        won: 2,
+        drawn: 2,
+        lost: 1,
+        goalsFor: 7,
+        goalsAgainst: 6,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 3,
@@ -273,6 +121,23 @@ const Table = () => {
       goalDifference: 3,
       points: 17,
       form: ["L", "W", "D", "W", "W"],
+      homeRecord: {
+        played: 5,
+        won: 3,
+        drawn: 1,
+        lost: 1,
+        goalsFor: 9,
+        goalsAgainst: 5,
+      },
+      awayRecord: {
+        played: 5,
+        won: 2,
+        drawn: 1,
+        lost: 2,
+        goalsFor: 6,
+        goalsAgainst: 7,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 4,
@@ -286,6 +151,23 @@ const Table = () => {
       goalDifference: 2,
       points: 15,
       form: ["W", "L", "D", "D", "W"],
+      homeRecord: {
+        played: 5,
+        won: 3,
+        drawn: 1,
+        lost: 1,
+        goalsFor: 8,
+        goalsAgainst: 5,
+      },
+      awayRecord: {
+        played: 5,
+        won: 1,
+        drawn: 2,
+        lost: 2,
+        goalsFor: 6,
+        goalsAgainst: 7,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 5,
@@ -299,6 +181,23 @@ const Table = () => {
       goalDifference: 1,
       points: 13,
       form: ["D", "D", "W", "L", "D"],
+      homeRecord: {
+        played: 5,
+        won: 2,
+        drawn: 2,
+        lost: 1,
+        goalsFor: 7,
+        goalsAgainst: 5,
+      },
+      awayRecord: {
+        played: 5,
+        won: 1,
+        drawn: 2,
+        lost: 2,
+        goalsFor: 5,
+        goalsAgainst: 6,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 6,
@@ -312,6 +211,23 @@ const Table = () => {
       goalDifference: -5,
       points: 9,
       form: ["L", "L", "D", "W", "L"],
+      homeRecord: {
+        played: 5,
+        won: 2,
+        drawn: 1,
+        lost: 2,
+        goalsFor: 6,
+        goalsAgainst: 6,
+      },
+      awayRecord: {
+        played: 5,
+        won: 0,
+        drawn: 2,
+        lost: 3,
+        goalsFor: 4,
+        goalsAgainst: 9,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 7,
@@ -326,6 +242,23 @@ const Table = () => {
       points: 6,
       form: ["L", "D", "L", "L", "W"],
       relegation: true,
+      homeRecord: {
+        played: 5,
+        won: 1,
+        drawn: 2,
+        lost: 2,
+        goalsFor: 5,
+        goalsAgainst: 7,
+      },
+      awayRecord: {
+        played: 5,
+        won: 0,
+        drawn: 1,
+        lost: 4,
+        goalsFor: 3,
+        goalsAgainst: 11,
+      },
+      logo: "/image/6-98x98.png",
     },
     {
       position: 8,
@@ -340,6 +273,23 @@ const Table = () => {
       points: 3,
       form: ["L", "L", "D", "L", "L"],
       relegation: true,
+      homeRecord: {
+        played: 5,
+        won: 0,
+        drawn: 2,
+        lost: 3,
+        goalsFor: 3,
+        goalsAgainst: 8,
+      },
+      awayRecord: {
+        played: 5,
+        won: 0,
+        drawn: 1,
+        lost: 4,
+        goalsFor: 2,
+        goalsAgainst: 12,
+      },
+      logo: "/image/6-98x98.png",
     },
   ];
 
@@ -395,7 +345,7 @@ const Table = () => {
         {form.map((result, i) => (
           <span
             key={i}
-            className={`inline-block w-4 h-4 rounded-full text-xs flex items-center justify-center 
+            className={` w-4 h-4 rounded-full text-xs flex items-center justify-center 
               ${
                 result === "W"
                   ? "bg-green-500 text-white"
@@ -411,23 +361,136 @@ const Table = () => {
     );
   };
 
+  const renderTeamCell = (team: TeamStanding) => {
+    return (
+      <div className="flex items-center">
+        <span className="text-xl mr-3">
+          <img src={team.logo} alt={team.team} className="w-6 h-6" />
+        </span>
+        <span className="font-semibold">{team.team}</span>
+        {getBadge(team.position, team.promotion, team.relegation)}
+      </div>
+    );
+  };
+
+  const renderStatsBasedOnFilter = (team: TeamStanding) => {
+    switch (activeFilter) {
+      case "home":
+        return (
+          <>
+            <td className="px-4 py-4 text-center">{team.homeRecord?.played}</td>
+            <td className="px-4 py-4 text-center font-semibold">
+              {team.homeRecord?.won}
+            </td>
+            <td className="px-4 py-4 text-center">{team.homeRecord?.drawn}</td>
+            <td className="px-4 py-4 text-center">{team.homeRecord?.lost}</td>
+            <td className="px-4 py-4 text-center">
+              {team.homeRecord?.goalsFor}
+            </td>
+            <td className="px-4 py-4 text-center">
+              {team.homeRecord?.goalsAgainst}
+            </td>
+            <td className="px-4 py-4 text-center font-semibold">
+              {team.homeRecord &&
+              team.homeRecord.goalsFor - team.homeRecord.goalsAgainst >= 0
+                ? `+${team.homeRecord.goalsFor - team.homeRecord.goalsAgainst}`
+                : team.homeRecord &&
+                  team.homeRecord.goalsFor - team.homeRecord.goalsAgainst}
+            </td>
+            <td className="px-4 py-4 text-center font-bold text-gray-900">
+              {team.homeRecord &&
+                team.homeRecord.won * 3 + team.homeRecord.drawn}
+            </td>
+          </>
+        );
+      case "away":
+        return (
+          <>
+            <td className="px-4 py-4 text-center">{team.awayRecord?.played}</td>
+            <td className="px-4 py-4 text-center font-semibold">
+              {team.awayRecord?.won}
+            </td>
+            <td className="px-4 py-4 text-center">{team.awayRecord?.drawn}</td>
+            <td className="px-4 py-4 text-center">{team.awayRecord?.lost}</td>
+            <td className="px-4 py-4 text-center">
+              {team.awayRecord?.goalsFor}
+            </td>
+            <td className="px-4 py-4 text-center">
+              {team.awayRecord?.goalsAgainst}
+            </td>
+            <td className="px-4 py-4 text-center font-semibold">
+              {team.awayRecord &&
+              team.awayRecord.goalsFor - team.awayRecord.goalsAgainst >= 0
+                ? `+${team.awayRecord.goalsFor - team.awayRecord.goalsAgainst}`
+                : team.awayRecord &&
+                  team.awayRecord.goalsFor - team.awayRecord.goalsAgainst}
+            </td>
+            <td className="px-4 py-4 text-center font-bold text-gray-900">
+              {team.awayRecord &&
+                team.awayRecord.won * 3 + team.awayRecord.drawn}
+            </td>
+          </>
+        );
+      case "form":
+        return (
+          <>
+            <td className="px-4 py-4 text-center">{team.played}</td>
+            <td className="px-4 py-4 text-center font-semibold">{team.won}</td>
+            <td className="px-4 py-4 text-center">{team.drawn}</td>
+            <td className="px-4 py-4 text-center">{team.lost}</td>
+            <td className="px-4 py-4 text-center">{team.goalsFor}</td>
+            <td className="px-4 py-4 text-center">{team.goalsAgainst}</td>
+            <td className="px-4 py-4 text-center font-semibold">
+              {team.goalDifference >= 0
+                ? `+${team.goalDifference}`
+                : team.goalDifference}
+            </td>
+            <td className="px-4 py-4 text-center font-bold text-gray-900">
+              {team.points}
+            </td>
+          </>
+        );
+      default: // overall
+        return (
+          <>
+            <td className="px-4 py-4 text-center">{team.played}</td>
+            <td className="px-4 py-4 text-center font-semibold">{team.won}</td>
+            <td className="px-4 py-4 text-center">{team.drawn}</td>
+            <td className="px-4 py-4 text-center">{team.lost}</td>
+            <td className="px-4 py-4 text-center">{team.goalsFor}</td>
+            <td className="px-4 py-4 text-center">{team.goalsAgainst}</td>
+            <td className="px-4 py-4 text-center font-semibold">
+              {team.goalDifference >= 0
+                ? `+${team.goalDifference}`
+                : team.goalDifference}
+            </td>
+            <td className="px-4 py-4 text-center font-bold text-gray-900">
+              {team.points}
+            </td>
+          </>
+        );
+    }
+  };
+
   return (
     <>
       <div
         className="relative py-24 bg-cover bg-center"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/image/about.jpeg')",
+            "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/image/about.jpeg')",
         }}
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             NSFL League Standings
           </h1>
-          <p className="text-white max-w-2xl mx-auto text-lg">
-            Current season standings with team performance statistics and recent
-            form.
-          </p>
+          <div className="text-white flex justify-center items-center space-x-2">
+            <span>Home</span>
+            <span>/</span>
+            <span className="text-red-500">League Table</span>
+          </div>
+    
         </div>
       </div>
 
@@ -444,6 +507,54 @@ const Table = () => {
               Matchday 10
             </span>
           </div>
+        </div>
+
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          <button
+            onClick={() => setActiveFilter("overall")}
+            className={`flex items-center px-4 py-2 rounded-lg border ${
+              activeFilter === "overall"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            }`}
+          >
+            <FaTrophy className="mr-2" />
+            Overall
+          </button>
+          <button
+            onClick={() => setActiveFilter("home")}
+            className={`flex items-center px-4 py-2 rounded-lg border ${
+              activeFilter === "home"
+                ? "bg-green-600 text-white border-green-600"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            }`}
+          >
+            <FaHome className="mr-2" />
+            Home
+          </button>
+          <button
+            onClick={() => setActiveFilter("away")}
+            className={`flex items-center px-4 py-2 rounded-lg border ${
+              activeFilter === "away"
+                ? "bg-purple-600 text-white border-purple-600"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            }`}
+          >
+            <FaRoad className="mr-2" />
+            Away
+          </button>
+          <button
+            onClick={() => setActiveFilter("form")}
+            className={`flex items-center px-4 py-2 rounded-lg border ${
+              activeFilter === "form"
+                ? "bg-orange-600 text-white border-orange-600"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            }`}
+          >
+            <FaChartLine className="mr-2" />
+            Form
+          </button>
         </div>
 
         <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-200">
@@ -489,33 +600,9 @@ const Table = () => {
                       {team.position}
                     </td>
                     <td className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <span className="font-semibold">{team.team}</span>
-                        {getBadge(
-                          team.position,
-                          team.promotion,
-                          team.relegation
-                        )}
-                      </div>
+                      {renderTeamCell(team)}
                     </td>
-                    <td className="px-4 py-4 text-center">{team.played}</td>
-                    <td className="px-4 py-4 text-center font-semibold">
-                      {team.won}
-                    </td>
-                    <td className="px-4 py-4 text-center">{team.drawn}</td>
-                    <td className="px-4 py-4 text-center">{team.lost}</td>
-                    <td className="px-4 py-4 text-center">{team.goalsFor}</td>
-                    <td className="px-4 py-4 text-center">
-                      {team.goalsAgainst}
-                    </td>
-                    <td className="px-4 py-4 text-center font-semibold">
-                      {team.goalDifference >= 0
-                        ? `+${team.goalDifference}`
-                        : team.goalDifference}
-                    </td>
-                    <td className="px-4 py-4 text-center font-bold text-gray-900">
-                      {team.points}
-                    </td>
+                    {renderStatsBasedOnFilter(team)}
                     <td className="px-4 py-4 text-center">
                       {team.form && renderFormIndicator(team.form)}
                     </td>

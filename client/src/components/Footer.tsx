@@ -71,14 +71,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300 transition-colors">
+                <Link
+                  to="/privacy"
+                  className="hover:text-blue-300 transition-colors"
+                >
                   Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-300 transition-colors">
-                  Terms of Service
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -189,10 +187,20 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-blue-800 mt-8 pt-8 text-center">
+
+        <div className="border-t border-blue-300 mt-8 pt-8 text-center text-gray-100">
           <p>
-            &copy; {new Date().getFullYear()} Football League. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Nepal School Football League. All
+            rights reserved. <br />
+            Developed with <span className="text-red-500">❤️</span> by{" "}
+            <a
+              href="https://1or8.com.np/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-red-200 font-semibold hover:underline text-lg"
+            >
+              1or8
+            </a>
           </p>
         </div>
       </div>

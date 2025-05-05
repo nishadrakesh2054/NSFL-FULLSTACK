@@ -23,17 +23,17 @@ const Contact = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            About NSFL
+          Get in Touch
           </h1>
           <div className="text-white flex justify-center items-center space-x-2">
-            <span>
-              {" "}
-              We'd love to hear from you! Reach out for inquiries, partnerships,
-              or just to say hello.
-            </span>
+            <span>Home</span>
+            <span>/</span>
+            <span className="text-red-500">Contact Us</span>
           </div>
         </div>
-      </div>
+         
+        </div>
+
       {/* Contact Cards Section */}
       <section className="py-20 bg-white relative overflow-hidden">
         {/* Floating background elements */}

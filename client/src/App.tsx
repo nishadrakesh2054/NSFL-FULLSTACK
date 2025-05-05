@@ -9,13 +9,15 @@ import Home from "./pages/Home";
 import Teams from "./pages/Teams";
 import TeamPlayers from "./pages/TeamPlayers";
 import PlayerDetails from "./pages/PlayerDetails";
-import Matches from "./pages/Matches";
+import Fixture from "./pages/Fixture";
 import Table from "./pages/Table";
 import News from "./pages/News";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Topbar from "./components/Topbar";
-
+import Highlights from "./pages/Highlights";
+import Privacy from "./pages/Privacy";
+import LiveMatchList from "./pages/LiveMatchList";
 function App() {
   useEffect(() => {
     AOS.init({
@@ -35,11 +37,14 @@ function App() {
             <Route path="/teams" element={<Teams />} />
             <Route path="/teams/:teamId" element={<TeamPlayers />} />
             <Route path="/teams/:teamId/players/:playerId" element={<PlayerDetails />} />
-            <Route path="/matches" element={<Matches />} />
+            <Route path="/fixture" element={<Fixture />} />
             <Route path="/table" element={<Table />} />
             <Route path="/news" element={<News />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/highlights" element={<Highlights />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/live-match" element={<LiveMatchList/>} />
           </Routes>
         </main>
         <Footer />
