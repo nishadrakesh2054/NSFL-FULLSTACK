@@ -4,19 +4,37 @@ import sequelize from "../../db/index.js";
 const Team = sequelize.define(
   "Team",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     team_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
-    },
-    team_details: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+      unique: true,
     },
     team_logo: {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    team_details: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    team_manager: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    founded: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    stadium: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    // S3 storage fields
     imageKey: {
       type: DataTypes.STRING,
       allowNull: true,

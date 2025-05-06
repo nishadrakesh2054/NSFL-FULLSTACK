@@ -120,8 +120,8 @@ const MatchFixture = () => {
           {/* Points Table */}
           <div className="lg:col-span-2" data-aos="fade-right">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
-              <div className="p-6 bg-gradient-to-r from-blue-600 to-blue-800">
-                <h2 className="text-2xl font-bold text-white">
+              <div className="p-6 bg-gradient-to-r from-blue-700 to-blue-800">
+                <h2 className="text-2xl font-bold text-white uppercase">
                   League Standings
                 </h2>
                 <p className="text-blue-100 mt-1">
@@ -205,8 +205,8 @@ const MatchFixture = () => {
           {/* Upcoming Matches */}
           <div data-aos="fade-left">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
-              <div className="p-6 bg-gradient-to-r from-blue-600 to-blue-800">
-                <h2 className="text-2xl font-bold text-white">
+              <div className="p-6 bg-gradient-to-r from-blue-700 to-blue-800">
+                <h2 className="text-2xl font-bold text-white uppercase">
                   Upcoming Matches
                 </h2>
                 <p className="text-blue-100 mt-1">Next week's fixtures</p>

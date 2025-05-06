@@ -1,42 +1,40 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/index.js";
 
-const Contact = sequelize.define(
-  "Contact",
-  {
-    firstName: {
+const Contact = sequelize.define("Contact", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true, // Ensures firstName is not empty
-      },
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: true, // Explicitly allow null if it's optional
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: true, // Validates email format
+        isEmail: true,
       },
-      // unique: true, // Uncomment if emails should be unique
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     message: {
       type: DataTypes.TEXT,
-      allowNull: true, // Explicitly allow null if it's optional
-    },
-    verified: {
-      type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false, // Sets a default value
+    },
+    status: {
+      type: DataTypes.ENUM("pending", "read", "replied"),
+      defaultValue: "pending",
     },
   },
-  {
+{
     timestamps: true,
-    tableName: "contacts", // Use plural table name for consistency
-  }
-);
 
+    tableName: "contacts",
+});
+  
 export default Contact;

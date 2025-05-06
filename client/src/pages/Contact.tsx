@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -8,8 +8,67 @@ import {
 } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
 import { FaYoutube, FaTiktok } from "react-icons/fa";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/contact/submit",
+        formData
+      );
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error sending message");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    setNewsletterLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/newsletter/subscribe",
+        {
+          email: newsletterEmail,
+        }
+      );
+      toast.success("Successfully subscribed to newsletter!");
+      setNewsletterEmail("");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Error subscribing to newsletter"
+      );
+    } finally {
+      setNewsletterLoading(false);
+    }
+  };
+
   return (
     <>
       {/* Hero Section with Breadcrumb */}
@@ -23,7 +82,7 @@ const Contact = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Get in Touch
+            Get in Touch
           </h1>
           <div className="text-white flex justify-center items-center space-x-2">
             <span>Home</span>
@@ -31,8 +90,7 @@ const Contact = () => {
             <span className="text-red-500">Contact Us</span>
           </div>
         </div>
-         
-        </div>
+      </div>
 
       {/* Contact Cards Section */}
       <section className="py-20 bg-white relative overflow-hidden">
@@ -120,7 +178,7 @@ const Contact = () => {
                   </p>
                 </div>
 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label
@@ -132,8 +190,11 @@ const Contact = () => {
                       <input
                         type="text"
                         id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
                         placeholder="Your name"
                       />
                     </div>
@@ -147,8 +208,11 @@ const Contact = () => {
                       <input
                         type="email"
                         id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -156,16 +220,19 @@ const Contact = () => {
 
                   <div>
                     <label
-                      htmlFor="subject"
+                      htmlFor="phone"
                       className="block text-sm font-medium text-gray-700 mb-2"
                     >
-                      Subject
+                      Phone <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
-                      id="subject"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
-                      placeholder="What's this about?"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+                      placeholder="Phone Number"
                     />
                   </div>
 
@@ -178,19 +245,23 @@ const Contact = () => {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
                       rows={5}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
                       placeholder="Your message..."
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-lg hover:from-red-700 hover:to-red-800 transition-all flex items-center justify-center shadow-md hover:shadow-lg"
+                    disabled={loading}
+                    className="w-full px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold rounded-lg hover:from-red-700 hover:to-red-800 transition-all flex items-center justify-center shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FiSend className="mr-3 text-lg" />
-                    Send Message
+                    {loading ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               </div>
@@ -263,9 +334,9 @@ const Contact = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="relative py-10 bg-gradient-to-r from-gray-900 to-gray-800 text-white overflow-hidden">
+      <section className="relative py-10 bg-gradient-to-r from-gray-700 to-gray-500 text-white overflow-hidden">
         {/* Optional Background Overlay Image */}
-        <div className="absolute inset-0 opacity-10 bg-[url('/image/football-bg.jpg')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 opacity-30 bg-[url('/image/parallex.jpg')] bg-cover bg-center"></div>
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-extrabold mb-4 tracking-wide">
@@ -277,16 +348,25 @@ const Contact = () => {
               ticket pre-sales, and behind-the-scenes content.
             </p>
 
-            <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+            <form
+              onSubmit={handleNewsletterSubmit}
+              className="max-w-md mx-auto flex flex-col sm:flex-row gap-4"
+            >
               <input
                 type="email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email address"
                 className="flex-grow px-6 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white/20 transition-all"
               />
-              <button className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-xl hover:scale-105">
-                Subscribe Now
+              <button
+                type="submit"
+                disabled={newsletterLoading}
+                className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {newsletterLoading ? "Subscribing..." : "Subscribe Now"}
               </button>
-            </div>
+            </form>
 
             <p className="text-sm text-gray-400 mt-6 italic">
               We respect your privacy. Unsubscribe anytime.

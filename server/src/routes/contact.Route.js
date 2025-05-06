@@ -1,72 +1,65 @@
 import express from "express";
 import Contact from "../models/contact.Model.js";
+import Newsletter from "../models/subscribe.Model.js";
+
 import Joi from "joi";
 
 const router = express.Router();
 
-// Define the validation schema
-const contactSchema = Joi.object({
-  firstName: Joi.string().required().messages({
-    "string.empty": "First name is required",
-  }),
-  lastName: Joi.string().optional().allow(null, ""),
-  email: Joi.string().email().required().messages({
-    "string.email": "Please provide a valid email address",
-    "string.empty": "Email is required",
-  }),
-  message: Joi.string().optional().allow(null, ""),
-  // Do not include the "verified" field in the validation schema
-});
-
-// Get all category
-router.get("/contacts-message", async (req, res) => {
-  try {
-    const contacts = await Contact.findAll();
-    res.status(200).json(contacts);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// POST request handler
-router.post("/contacts", async (req, res) => {
-  // Validate the request body
-  const { error, value } = contactSchema.validate(req.body, {
-    abortEarly: false,
+router.post("/submit", async (req, res) => {
+    try {
+      const { name, email, phone, message } = req.body;
+  
+      const contact = await Contact.create({
+        name,
+        email,
+        phone,
+        message,
+      });
+  
+      res.status(201).json({
+        success: true,
+        message: "Message sent successfully",
+        data: contact,
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: "Error sending message",
+        error: error.message,
+      });
+    }
   });
 
-  if (error) {
-    return res.status(400).json({
-      status: "error",
-      message: "Validation error",
-      details: error.details.map((detail) => detail.message),
-    });
-  }
 
-  try {
-    // Create a new contact
-    const newContact = await Contact.create(value);
 
-    // console.log(newContact.lastName);
 
-    await sendContactEmail(
-      newContact.firstName,
-      newContact.lastName,
-      newContact.email,
-      newContact.message
-    );
-
-    res.status(201).json({
-      status: "success",
-      data: newContact,
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: "Internal server error",
-      details: err.message,
-    });
-  }
-});
+router.post("/subscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+  
+      const [subscriber, created] = await Newsletter.findOrCreate({
+        where: { email },
+        defaults: { status: "active" },
+      });
+  
+      if (!created && subscriber.status === "unsubscribed") {
+        await subscriber.update({ status: "active" });
+      }
+  
+      res.status(201).json({
+        success: true,
+        message: "Successfully subscribed to newsletter",
+        data: subscriber,
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: "Error subscribing to newsletter",
+        error: error.message,
+      });
+    }
+  });
+  
 
 export default router;

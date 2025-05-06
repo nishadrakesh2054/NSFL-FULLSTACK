@@ -10,57 +10,76 @@ const Player = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    goalsScored: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    matchesPlayed: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    imageKey: {
+    name: {
       type: DataTypes.STRING,
-    },
-    bucket: {
-      type: DataTypes.STRING,
-    },
-    mime: {
-      type: DataTypes.STRING,
-    },
-    position: {
-      type: DataTypes.STRING, // E.g., "Goalkeeper", "Defender", "Midfielder", "Forward"
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING, // E.g., "Goalkeeper", "Defender", "Midfielder", "Forward"
+    img: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    position: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    number: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    nationality: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     age: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    weight: {
-      type: DataTypes.FLOAT, // Weight in kg
-      allowNull: true,
-    },
     height: {
-      type: DataTypes.FLOAT, // Height in cm
+      type: DataTypes.STRING,
       allowNull: true,
     },
-    player_name: {
+    weight: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    player_image: {
+    bio: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    stats: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+      defaultValue: {
+        matches: 0,
+        goals: 0,
+        assists: 0,
+        yellowCards: 0,
+        redCards: 0,
+      },
+    },
+    achievements: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+      defaultValue: [],
+    },
+    imageKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    bucket: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    mime: {
       type: DataTypes.STRING,
       allowNull: true,
     },
     teamId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Team,
-        key: "team_name",
+        key: "id",
       },
     },
   },
@@ -69,6 +88,8 @@ const Player = sequelize.define(
     timestamps: true,
   }
 );
+
+// Associations
 Team.hasMany(Player, { foreignKey: "teamId", onDelete: "CASCADE" });
 Player.belongsTo(Team, { foreignKey: "teamId" });
 

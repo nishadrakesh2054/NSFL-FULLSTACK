@@ -9,6 +9,7 @@ import {
   FaNewspaper,
   FaTv,
 } from "react-icons/fa";
+import { TrophyIcon } from "@heroicons/react/24/solid";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,8 +57,12 @@ const Navbar = () => {
     <nav className="bg-[#0049be] text-white sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
-          <Link to="/" className="text-2xl font-bold">
-            Football League
+          <Link
+            to="/"
+            className="flex items-center space-x-2 text-3xl font-extrabold text-yellow-600 hover:text-yellow-500 transition"
+          >
+            <TrophyIcon className="h-8 w-8 text-yellow-500" />
+            <span className="tracking-wide text-white">NSFL</span>
           </Link>
 
           {/* Desktop Navigation */}

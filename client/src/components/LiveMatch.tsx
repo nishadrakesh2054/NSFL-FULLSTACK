@@ -25,20 +25,26 @@ const Highlights = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight">
-              LIVE FOOTBALL
+            <h2 className="text-4xl md:text-4xl font-bold text-white tracking-tight relative text-center">
+             WATCH LIVE MATCH
+              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-28 h-1 bg-gradient-to-r from-[#fec802] to-[#0049be] rounded-full"></div>
             </h2>
-            <p className="text-xl md:text-2xl text-gray-200 font-medium max-w-2xl mx-auto">
+            <div className="relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-16 h-16 border-2 border-white/20 rounded-full"></div>
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-12 h-12 border-2 border-white/30 rounded-full"></div>
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 border-2 border-white/40 rounded-full"></div>
+            </div>
+            <p className="text-lg md:text-xl text-gray-200 font-medium max-w-2xl mx-auto leading-relaxed mt-8 text-center">
               Experience the thrill of live matches and never miss a moment of
               the action
             </p>
-          </div>
+          
+       
         </div>
 
         {/* Live Section */}
         <section className="mt-16 mx-auto px-4 relative z-10">
-          <div className="max-w-7xl mx-auto"  data-aos="fade-up">
+          <div className="max-w-7xl mx-auto" data-aos="fade-up">
             <div className="rounded-2xl overflow-hidden shadow-2xl bg-white/5 backdrop-blur-sm">
               <div className="aspect-w-16 aspect-h-9 relative">
                 <iframe
@@ -53,7 +59,10 @@ const Highlights = () => {
                   LIVE
                 </div>
               </div>
-              <div className="p-6 bg-gradient-to-r from-gray-400/10 to-gray-800/10"  data-aos="fade-up">
+              <div
+                className="p-6 bg-gradient-to-r from-gray-400/10 to-gray-800/10"
+                data-aos="fade-up"
+              >
                 <div className="flex items-center justify-center flex-wrap gap-4 sm:gap-8 mb-6">
                   {/* Team A */}
                   <div className="flex items-center gap-2 sm:gap-3">

@@ -17,7 +17,7 @@ import session from "express-session";
 
 import adminRouter from "./src/resources/app.js";
 import sequelize from "./src/db/index.js";
-import gameFixture from "./src/routes/fixture.Route.js";
+// import gameFixture from "./src/routes/fixture.Route.js";
 import Contact from "./src/routes/contact.Route.js";
 
 // Initialize express app
@@ -96,7 +96,7 @@ app.use(express.urlencoded({ extended: true }));
 // API routes with rate limiting
 app.use("/api/", apiLimiter);
 app.use("/api", Contact);
-app.use("/api", gameFixture);
+// app.use("/api", gameFixture);
 
 // Health check endpoint
 app.get("/api/test", (req, res) => {

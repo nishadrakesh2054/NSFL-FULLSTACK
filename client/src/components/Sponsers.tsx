@@ -40,12 +40,14 @@ const Sponsors = () => {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
             <div className="mb-6 md:mb-0">
-              <h2 className="text-4xl font-bold text-[#0049be] mb-2">
-                Our Valuable Sponsors
+              <h2 className="text-2xl md:text-3xl font-bold text-[#0049be] tracking-tight relative ">
+                OUR VALUABLE SPONSORS
+                <div className="absolute -bottom-4  transform  w-32 h-1 bg-gradient-to-r from-[#fec802] to-[#0049be] rounded-full"></div>
               </h2>
-              <p className="text-md text-primary-900">
+
+              <p className="text-md md:text-md text-gray-800 font-medium max-w-2xl mx-auto leading-relaxed mt-8 ">
                 Join our growing family of sponsors and be part of the future of
-                football in Nepal{" "}
+                football in Nepal
               </p>
             </div>
 

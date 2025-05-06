@@ -2,31 +2,35 @@ import AdminJSExpress from "@adminjs/express";
 import AdminJSSequelize from "@adminjs/sequelize";
 import AdminJS from "adminjs";
 import authenticate from "./authenticateUser.js";
-import { userResource, ContactResource } from "./user.Resourse.js";
-import { componentLoader, Components } from "../components/componentsLoader.js";
-
 import {
-  FixtureResource,
-  ResultFixtureResource,
-  TableFixtureResource,
-  gameTeamResource,
-  playerResource,
-  GameFixtureResource,
-} from "./models.Resource.js";
+  userResource,
+  ContactResource,
+  NewsletterResource,
+} from "./user.Resourse.js";
+import { componentLoader, Components } from "../components/componentsLoader.js";
+import { sponserResource } from "./blog.Resource.js";
+import { blogResource } from "./blog.Resource.js";
+import { highlightResource } from "./blog.Resource.js";
+import { gameTeamResource } from "./games.Resource.js";
 
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // Initialize AdminJS
 const admin = new AdminJS({
   resources: [
-    GameFixtureResource,
-    FixtureResource,
-    ResultFixtureResource,
-    TableFixtureResource,
     gameTeamResource,
-    playerResource,
+    // GameFixtureResource,
+    // FixtureResource,
+    // ResultFixtureResource,
+    // TableFixtureResource,
+    // gameTeamResource,
+    // playerResource,
     ContactResource,
     userResource,
+    NewsletterResource,
+    sponserResource,
+    blogResource,
+    highlightResource,
   ],
   rootPath: "/admin",
   branding: {

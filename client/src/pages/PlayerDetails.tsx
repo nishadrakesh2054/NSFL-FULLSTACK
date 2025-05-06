@@ -420,175 +420,189 @@ const PlayerDetails = () => {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <div className="container mx-auto px-4 py-12">
-        <button
-          onClick={() => navigate(`/teams/${team.id}`)}
-          className="flex items-center text-blue-700 hover:text-blue-900 mb-6"
-        >
-          <FaArrowLeft className="mr-2" /> Back to Team
-        </button>
+    <>
+      <div
+        className="relative py-24 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/image/about.jpeg')",
+        }}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Players
+          </h1>
+          <div className="text-white flex justify-center items-center space-x-2">
+            <span>Home</span>
+            <span>/</span>
+            <span>Teams</span>
+            <span>/</span>
+            <span className="text-red-500">{player.name}</span>
+          </div>
+        </div>
+      </div>
+      <div className="bg-gray-50 min-h-screen">
+        <div className="container mx-auto px-4 py-12">
+          <button
+            onClick={() => navigate(`/teams/${team.id}`)}
+            className="flex items-center text-blue-700 hover:text-blue-900 mb-6"
+          >
+            <FaArrowLeft className="mr-2" /> Back to Team
+          </button>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {/* Player Header */}
-          <div className="bg-gradient-to-r from-blue-800 to-indigo-800 p-8 text-white">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="w-40 h-40 rounded-full bg-white p-2 mb-6 md:mb-0 md:mr-8">
-                <img
-                  src={player.img}
-                  alt={player.name}
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold mb-2">{player.name}</h1>
-                <div className="flex flex-wrap items-center gap-4 mb-4">
-                  <span className="flex items-center bg-white bg-opacity-20 px-3 py-1 rounded-full">
-                    <FaShirtsinbulk className="mr-2" /> #{player.number}
-                  </span>
-                  <span className="flex items-center bg-white bg-opacity-20 px-3 py-1 rounded-full">
-                    <FaFutbol className="mr-2" /> {player.position}
-                  </span>
-                  <span className="flex items-center bg-white bg-opacity-20 px-3 py-1 rounded-full">
-                    <FaFlag className="mr-2" /> {player.nationality}
-                  </span>
-                </div>
-                <div className="flex items-center">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            {/* Player Header */}
+            <div className="bg-gradient-to-r from-blue-800 to-indigo-800 p-6 text-white">
+              <div className="flex flex-col md:flex-row items-center">
+                <div className="w-40 h-40 rounded-full bg-[#fec802] p-2 mb-6 md:mb-0 md:mr-8">
                   <img
-                    src={team.logo}
-                    alt={team.name}
-                    className="w-8 h-8 mr-2"
+                    src={player.img}
+                    alt={player.name}
+                    className="w-full h-full object-cover rounded-full"
                   />
-                  <span>{team.name}</span>
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold mb-2">{player.name}</h1>
+
+                  <div className="flex items-center">
+                    <img
+                      src={team.logo}
+                      alt={team.name}
+                      className="w-8 h-8 mr-2"
+                    />
+                    <span>{team.name}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Player Content */}
-          <div className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Left Column */}
-              <div className="md:col-span-2">
-                <h2 className="text-xl font-bold mb-4 flex items-center">
-                  <FaHistory className="mr-2 text-blue-700" /> Biography
-                </h2>
-                <p className="text-gray-700 mb-8">{player.bio}</p>
+            {/* Player Content */}
+            <div className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Left Column */}
+                <div className="md:col-span-2">
+                  <h2 className="text-xl font-bold mb-4 flex items-center">
+                    <FaHistory className="mr-2 text-blue-700" /> Biography
+                  </h2>
+                  <p className="text-gray-700 mb-8">{player.bio}</p>
 
-                <h2 className="text-xl font-bold mb-4 flex items-center">
-                  <FaChartLine className="mr-2 text-blue-700" /> Season
-                  Statistics
-                </h2>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                  <div className="bg-gray-100 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-800">
-                      {player.stats.matches}
+                  <h2 className="text-xl font-bold mb-4 flex items-center">
+                    <FaChartLine className="mr-2 text-blue-700" /> Season
+                    Statistics
+                  </h2>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                    <div className="bg-gray-100 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-800">
+                        {player.stats.matches}
+                      </div>
+                      <div className="text-sm text-gray-600">Matches</div>
                     </div>
-                    <div className="text-sm text-gray-600">Matches</div>
-                  </div>
-                  <div className="bg-gray-100 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-800">
-                      {player.stats.goals}
+                    <div className="bg-gray-100 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-800">
+                        {player.stats.goals}
+                      </div>
+                      <div className="text-sm text-gray-600">Goals</div>
                     </div>
-                    <div className="text-sm text-gray-600">Goals</div>
-                  </div>
-                  <div className="bg-gray-100 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-800">
-                      {player.stats.assists}
+                    <div className="bg-gray-100 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-800">
+                        {player.stats.assists}
+                      </div>
+                      <div className="text-sm text-gray-600">Assists</div>
                     </div>
-                    <div className="text-sm text-gray-600">Assists</div>
-                  </div>
-                  <div className="bg-gray-100 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-800">
-                      {player.stats.yellowCards}
+                    <div className="bg-gray-100 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-800">
+                        {player.stats.yellowCards}
+                      </div>
+                      <div className="text-sm text-gray-600">Yellow Cards</div>
                     </div>
-                    <div className="text-sm text-gray-600">Yellow Cards</div>
-                  </div>
-                  <div className="bg-gray-100 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-800">
-                      {player.stats.redCards}
+                    <div className="bg-gray-100 p-4 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-blue-800">
+                        {player.stats.redCards}
+                      </div>
+                      <div className="text-sm text-gray-600">Red Cards</div>
                     </div>
-                    <div className="text-sm text-gray-600">Red Cards</div>
                   </div>
+
+                  {player.achievements && player.achievements.length > 0 && (
+                    <>
+                      <h2 className="text-xl font-bold mb-4 flex items-center">
+                        <FaTrophy className="mr-2 text-blue-700" /> Achievements
+                      </h2>
+                      <ul className="space-y-2 mb-8">
+                        {player.achievements.map((achievement, index) => (
+                          <li key={index} className="flex items-start">
+                            <span className="text-blue-700 mr-2">•</span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                 </div>
 
-                {player.achievements && player.achievements.length > 0 && (
-                  <>
-                    <h2 className="text-xl font-bold mb-4 flex items-center">
-                      <FaTrophy className="mr-2 text-blue-700" /> Achievements
-                    </h2>
-                    <ul className="space-y-2 mb-8">
-                      {player.achievements.map((achievement, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-blue-700 mr-2">•</span>
-                          <span>{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </div>
-
-              {/* Right Column */}
-              <div>
-                <h2 className="text-xl font-bold mb-4 flex items-center">
-                  <FaUser className="mr-2 text-blue-700" /> Player Details
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-500">Age</h3>
-                    <p className="flex items-center">
-                      <FaBirthdayCake className="mr-2 text-gray-400" />
-                      {player.age} years
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-500">
-                      Height
-                    </h3>
-                    <p className="flex items-center">
-                      <FaRulerVertical className="mr-2 text-gray-400" />
-                      {player.height}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-500">
-                      Weight
-                    </h3>
-                    <p className="flex items-center">
-                      <FaWeight className="mr-2 text-gray-400" />
-                      {player.weight}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-500">
-                      Nationality
-                    </h3>
-                    <p className="flex items-center">
-                      <FaFlag className="mr-2 text-gray-400" />
-                      {player.nationality}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-500">
-                      Position
-                    </h3>
-                    <p className="flex items-center">
-                      <FaFutbol className="mr-2 text-gray-400" />
-                      {player.position}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-500">
-                      Team
-                    </h3>
-                    <div className="flex items-center mt-1">
-                      <img
-                        src={team.logo}
-                        alt={team.name}
-                        className="w-6 h-6 mr-2"
-                      />
-                      <span>{team.name}</span>
+                {/* Right Column */}
+                <div>
+                  <h2 className="text-xl font-bold mb-4 flex items-center">
+                    <FaUser className="mr-2 text-blue-700" /> Player Details
+                  </h2>
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        Age
+                      </h3>
+                      <p className="flex items-center">
+                        <FaBirthdayCake className="mr-2 text-gray-400" />
+                        {player.age} years
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        Height
+                      </h3>
+                      <p className="flex items-center">
+                        <FaRulerVertical className="mr-2 text-gray-400" />
+                        {player.height}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        Weight
+                      </h3>
+                      <p className="flex items-center">
+                        <FaWeight className="mr-2 text-gray-400" />
+                        {player.weight}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        Nationality
+                      </h3>
+                      <p className="flex items-center">
+                        <FaFlag className="mr-2 text-gray-400" />
+                        {player.nationality}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        Position
+                      </h3>
+                      <p className="flex items-center">
+                        <FaFutbol className="mr-2 text-gray-400" />
+                        {player.position}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-500">
+                        Team
+                      </h3>
+                      <div className="flex items-center mt-1">
+                        <img
+                          src={team.logo}
+                          alt={team.name}
+                          className="w-6 h-6 mr-2"
+                        />
+                        <span>{team.name}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -597,7 +611,7 @@ const PlayerDetails = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

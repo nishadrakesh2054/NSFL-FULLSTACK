@@ -10,7 +10,6 @@ interface Team {
   manager: string;
   founded: number;
   stadium: string;
-
   players: Player[];
 }
 
@@ -251,7 +250,7 @@ const Teams = () => {
         </div>
       </div>
       <div className="bg-gray-50 min-h-screen">
-        <div className="container mx-auto px-4 py-">
+        <div className="container mx-auto px-4 py-4">
           <div className="text-center py-10">
             <p className="text-gray-600 max-w-2xl mx-auto">
               Explore all teams participating in the National Soccer Football
@@ -282,7 +281,7 @@ const Teams = () => {
                   <div className="space-y-3">
                     {/* Founded */}
                     <div className="flex items-center space-x-1">
-                      <FaCalendarAlt className="text-gray-500" />
+                      <FaCalendarAlt className="text-blue-500" />
                       <span className="text-gray-600 font-medium">
                         Founded:
                       </span>
@@ -291,7 +290,7 @@ const Teams = () => {
 
                     {/* Stadium */}
                     <div className="flex items-center space-x-1">
-                      <FaHome className="text-gray-500" />
+                      <FaHome className="text-blue-500" />
                       <span className="text-gray-600 font-medium">
                         Stadium:
                       </span>
@@ -300,7 +299,7 @@ const Teams = () => {
 
                     {/* Coach */}
                     <div className="flex items-center space-x-1">
-                      <FaUserTie className="text-gray-500" />
+                      <FaUserTie className="text-blue-500" />
                       <span className="text-gray-600 font-medium">Coach:</span>
                       <span className="text-gray-700">{team.manager}</span>
                     </div>
@@ -309,7 +308,7 @@ const Teams = () => {
                   {/* Button */}
                   <button
                     onClick={() => navigate(`/teams/${team.id}`)}
-                    className="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
+                    className="mt-6 w-full bg-[#fec802] hover:bg-blue-800 hover:text-white text-blue-800 py-2 text-lg  font-extrabold rounded-lg transition-colors flex items-center justify-center"
                   >
                     View Squad
                   </button>
