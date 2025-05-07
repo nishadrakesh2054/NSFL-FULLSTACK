@@ -9,13 +9,15 @@ const Table = sequelize.define(
       allowNull: false,
       defaultValue: 0,
     },
-    teamName: {
+    team_name: {
       type: DataTypes.STRING,
       allowNull: false,
+  
     },
-    teamLogo: {
+    team_logo: {
       type: DataTypes.STRING,
       allowNull: true,
+      
     },
     played: {
       type: DataTypes.INTEGER,
@@ -41,35 +43,37 @@ const Table = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+      
     },
     goalsAgainst: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+   
     },
     goalDifference: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+     
     },
     points: {
       type: DataTypes.VIRTUAL,
       get() {
-        return this.won * 3 + this.drawn;
+        return this.getDataValue("won") * 3 + this.getDataValue("drawn");
       },
     },
-    form: {
-      type: DataTypes.JSON,
-      allowNull: true,
-      defaultValue: [],
-      get() {
-        const rawValue = this.getDataValue("form");
-        return rawValue ? JSON.parse(rawValue) : [];
-      },
-      set(value) {
-        this.setDataValue("form", JSON.stringify(value));
-      },
-    },
+    // form: {
+    //     type: DataTypes.TEXT,
+    //     allowNull: true,
+    //     defaultValue: "[]",
+    //     get() {
+    //       return JSON.parse(this.getDataValue("form") || "[]");
+    //     },
+    //     set(value) {
+    //       this.setDataValue("form", JSON.stringify(value));
+    //     },
+    //   },
     promotion: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -80,62 +84,42 @@ const Table = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
-    homeRecord: {
-      type: DataTypes.JSON,
-      allowNull: true,
-      defaultValue: {
-        played: 0,
-        won: 0,
-        drawn: 0,
-        lost: 0,
-        goalsFor: 0,
-        goalsAgainst: 0,
-      },
-      get() {
-        const rawValue = this.getDataValue("homeRecord");
-        return rawValue
-          ? JSON.parse(rawValue)
-          : {
-              played: 0,
-              won: 0,
-              drawn: 0,
-              lost: 0,
-              goalsFor: 0,
-              goalsAgainst: 0,
-            };
-      },
-      set(value) {
-        this.setDataValue("homeRecord", JSON.stringify(value));
-      },
-    },
-    awayRecord: {
-      type: DataTypes.JSON,
-      allowNull: true,
-      defaultValue: {
-        played: 0,
-        won: 0,
-        drawn: 0,
-        lost: 0,
-        goalsFor: 0,
-        goalsAgainst: 0,
-      },
-      get() {
-        const rawValue = this.getDataValue("awayRecord");
-        return rawValue
-          ? JSON.parse(rawValue)
-          : {
-              played: 0,
-              won: 0,
-              drawn: 0,
-              lost: 0,
-              goalsFor: 0,
-              goalsAgainst: 0,
-            };
-      },
-      set(value) {
-        this.setDataValue("awayRecord", JSON.stringify(value));
-      },
-    },
+    // homeRecord: {
+    //     type: DataTypes.TEXT,
+    //     allowNull: true,
+    //     defaultValue: JSON.stringify({
+    //       played: 0,
+    //       won: 0,
+    //       drawn: 0,
+    //       lost: 0,
+    //       goalsFor: 0,
+    //       goalsAgainst: 0,
+    //     }),
+    //     get() {
+    //       return JSON.parse(this.getDataValue("homeRecord") || "{}");
+    //     },
+    //     set(value) {
+    //       this.setDataValue("homeRecord", JSON.stringify(value));
+    //     },
+    //   },
+    //   awayRecord: {
+    //     type: DataTypes.TEXT,
+    //     allowNull: true,
+    //     defaultValue: JSON.stringify({
+    //       played: 0,
+    //       won: 0,
+    //       drawn: 0,
+    //       lost: 0,
+    //       goalsFor: 0,
+    //       goalsAgainst: 0,
+    //     }),
+    //     get() {
+    //       return JSON.parse(this.getDataValue("awayRecord") || "{}");
+    //     },
+    //     set(value) {
+    //       this.setDataValue("awayRecord", JSON.stringify(value));
+    //     },
+    //   },
     season: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -146,13 +130,26 @@ const Table = sequelize.define(
       allowNull: false,
       defaultValue: 1,
     },
+    imageKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    bucket: {
+      type: DataTypes.STRING,   
+      allowNull: true,
+    },
+    mime: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    
+
   },
   {
     tableName: "tables",
     timestamps: true,
     paranoid: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
+   
   }
 );
 

@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../db/index.js";
-import Fixture from "./dateFixtures.Model.js";
 
 const matchFixture = sequelize.define(
   "MatchFixture",
@@ -28,14 +27,10 @@ const matchFixture = sequelize.define(
       type: DataTypes.STRING,
       field: "image2",
     },
-    date: {
-      type: DataTypes.STRING,
+    fixture_date: {
+      type: DataTypes.DATEONLY,
       allowNull: false,
-      field: "fixture_date",
-      references: {
-        model: Fixture,
-        key: "date",
-      },
+
     },
     time: {
       type: DataTypes.STRING,
@@ -44,12 +39,20 @@ const matchFixture = sequelize.define(
     venue: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: "location",
+     
     },
     status: {
-      type: DataTypes.ENUM("upcoming", "completed"),
+      type: DataTypes.ENUM("upcoming", "completed", "live"),
       defaultValue: "upcoming",
       allowNull: false,
+    },
+    scoreHome: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    scoreAway: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     // Image metadata fields
     imageKey1: {
@@ -77,8 +80,5 @@ const matchFixture = sequelize.define(
     paranoid: true,
   }
 );
-
-Fixture.hasMany(matchFixture, { foreignKey: "fixture_date" });
-matchFixture.belongsTo(Fixture, { foreignKey: "fixture_date" });
 
 export default matchFixture;

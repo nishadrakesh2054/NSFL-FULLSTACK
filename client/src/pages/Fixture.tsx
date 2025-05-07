@@ -25,10 +25,7 @@ interface Match {
     home: number;
     away: number;
   };
-  scorers?: {
-    home: string[];
-    away: string[];
-  };
+
 }
 
 const Matches = () => {
@@ -74,10 +71,7 @@ const Matches = () => {
         home: 2,
         away: 1,
       },
-      scorers: {
-        home: ["Robert Taylor (45')", "Thomas Anderson (78')"],
-        away: ["Daniel White (62')"],
-      },
+   
     },
     {
       id: 4,
@@ -93,10 +87,7 @@ const Matches = () => {
         home: 1,
         away: 1,
       },
-      scorers: {
-        home: ["Michael Brown (33')"],
-        away: ["James Wilson (89')"],
-      },
+   
     },
   ];
 

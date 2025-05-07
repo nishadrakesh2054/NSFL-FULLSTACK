@@ -21,6 +21,7 @@ interface TeamStanding {
   goalsAgainst: number;
   goalDifference: number;
   points: number;
+  
   form?: string[]; 
   promotion?: boolean;
   relegation?: boolean;

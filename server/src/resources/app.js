@@ -9,15 +9,17 @@ import {
 } from "./user.Resourse.js";
 import { componentLoader, Components } from "../components/componentsLoader.js";
 import { sponserResource,blogResource,highlightResource } from "./blog.Resource.js";
-import { gameTeamResource,playerResource,recordResource} from "./games.Resource.js";
+import { gameTeamResource,playerResource,recordResource,matchFixtureResource,tableResource} from "./games.Resource.js";
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // Initialize AdminJS
 const admin = new AdminJS({
   resources: [
+    tableResource,
     gameTeamResource,
     playerResource,
     recordResource,
+    matchFixtureResource,
     // GameFixtureResource,
     // FixtureResource,
     // ResultFixtureResource,

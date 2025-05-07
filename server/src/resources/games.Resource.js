@@ -11,6 +11,8 @@ import { componentLoader } from "../components/componentsLoader.js";
 import Team from "../models/fixture/team.Model.js";
 import Player from "../models/fixture/player.Model.js";
 import Record from "../models/fixture/record.Model.js";
+import MatchFixture from "../models/fixture/matchFixture.Model.js";
+import Table from "../models/fixture/table.Model.js";
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // const componentLoader = new ComponentLoader();
@@ -21,10 +23,287 @@ const localProvider = {
   },
 };
 
+
+export const tableResource = {
+    resource: Table,
+    options: {
+      navigation: { name: "League Table", icon: "Table" },
+      actions: {
+        list: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        edit: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        new: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        show: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        delete: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+      },
+      listProperties: [
+        "position",
+        "team_name",
+        "team_logo",
+        "played",
+        "won",
+        "drawn",
+        "lost",
+        "goalsFor",
+        "goalsAgainst",
+        "goalDifference",
+        "points",
+        "promotion",
+        "relegation"
+      ],
+      showProperties: [
+        "position",
+        "team_name",
+        "team_logo",
+        "played",
+        "won",
+        "drawn",
+        "lost",
+        "goalsFor",
+        "goalsAgainst",
+        "goalDifference",
+        "points",
+        // "form",
+        "promotion",
+        "relegation",
+        // "homeRecord",
+        // "awayRecord",
+        "season",
+        "matchday"
+      ],
+      properties: {
+        id: { isVisible: false, position: 1 },
+        position: { 
+          isVisible: true, 
+          position: 2,
+          type: "number" 
+        },
+        team_name: { 
+          isTitle: true, 
+          position: 3 
+        },
+        team_logo: {
+          type: "file",
+          isVisible: { list: true, edit: true, filter: false, show: true },
+          position: 4,
+        },
+        played: { 
+          isVisible: true,
+          position: 5,
+          type: "number" 
+        },
+        won: { 
+          isVisible: true,
+          position: 6,
+          type: "number" 
+        },
+        drawn: { 
+          isVisible: true,
+          position: 7,
+          type: "number" 
+        },
+        lost: { 
+          isVisible: true,
+          position: 8,
+          type: "number" 
+        },
+        goalsFor: { 
+          isVisible: true,
+          position: 9,
+          type: "number" 
+        },
+        goalsAgainst: { 
+          isVisible: true,
+          position: 10,
+          type: "number" 
+        },
+        goalDifference: { 
+          isVisible: true,
+          position: 11,
+          type: "number" 
+        },
+        points: { 
+          isVisible: true,
+          position: 12,
+          type: "number" 
+        },
+        // form: {
+        //   type: "mixed",
+        //   isVisible: { list: false, edit: true, filter: false, show: true },
+        //   position: 13,
+        
+        // },
+        promotion: { 
+          isVisible: true,
+          position: 14,
+          type: "boolean" 
+        },
+        relegation: { 
+          isVisible: true,
+          position: 15,
+          type: "boolean" 
+        },
+        // homeRecord: {
+        //   type: "mixed",
+        //   isVisible: { list: false, edit: true, filter: false, show: true },
+        //   position: 16,
+        
+        // },
+        // awayRecord: {
+        //   type: "mixed",
+        //   isVisible: { list: false, edit: true, filter: false, show: true },
+        //   position: 17,
+        
+        // },
+        season: { 
+          isVisible: true,
+          position: 18 
+        },
+        matchday: { 
+          isVisible: true,
+          position: 19,
+          type: "number" 
+        },
+        imageKey: { 
+          isVisible: false,
+          position: 20 
+        },
+        bucket: { 
+          isVisible: false,
+          position: 21 
+        },
+        mime: { 
+          isVisible: false,
+          position: 22 
+        },
+        createdAt: { 
+          isVisible: false,
+          position: 23 
+        },
+        updatedAt: { 
+          isVisible: false,
+          position: 24 
+        },
+      },
+    },
+    features: [
+      uploadFeature({
+        componentLoader,
+        provider: { local: localProvider },
+        properties: {
+          file: "team_logo",
+          key: "imageKey",
+          bucket: "bucket",
+          mimeType: "mime",
+        },
+        validation: {
+          mimeTypes: ["image/png", "image/jpeg", "image/webp"],
+        },
+      }),
+    ],
+  };
+
 export const gameTeamResource = {
-  resource: Team,
+    resource: Team,
+    options: {
+      navigation: { name: "Teams", icon: "Users" },
+      actions: {
+        list: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        edit: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        new: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        show: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+        delete: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin && currentAdmin.role === "Admin",
+        },
+      },
+      listProperties: [
+        "id",
+        "team_name",
+        "team_logo",
+        "team_manager",
+        "founded",
+        "stadium",
+      ],
+      showProperties: [
+        "id",
+        "team_name",
+        "team_logo",
+        "team_manager",
+        "founded",
+        "stadium",
+      ],
+      properties: {
+        id: { isVisible: false, position: 1 },
+        team_name: { isTitle: true, position: 2 },
+        team_logo: {
+          type: "file",
+          isVisible: { list: true, edit: true, filter: false, show: true },
+          position: 3,
+        },
+        team_details: {
+          type: "textarea",
+          isVisible: { list: false, edit: true, filter: false, show: true },
+          props: { rows: 6 },
+          position: 7,
+        },
+        team_manager: { isVisible: true, position: 6 },
+        founded: { isVisible: true, position: 4 },
+        stadium: { isVisible: true, position: 5 },
+        createdAt: { isVisible: false, position: 8 },
+        updatedAt: { isVisible: false, position: 9 },
+        imageKey: { isVisible: false, position: 10 },
+        bucket: { isVisible: false, position: 11 },
+        mime: { isVisible: false, position: 12 },
+      },
+    },
+    features: [
+      uploadFeature({
+        componentLoader,
+        provider: { local: localProvider },
+        properties: {
+          file: "team_logo",
+          key: "imageKey",
+          bucket: "bucket",
+          mimeType: "mime",
+        },
+        validation: {
+          mimeTypes: ["image/png", "image/jpeg"],
+        },
+      }),
+    ],
+  };
+
+export const matchFixtureResource = {
+  resource: MatchFixture,
   options: {
-    navigation: { name: "Teams", icon: "Users" },
+    navigation: { name: "Matches", icon: "Calendar" },
     actions: {
       list: {
         isAccessible: ({ currentAdmin }) =>
@@ -49,53 +328,89 @@ export const gameTeamResource = {
     },
     listProperties: [
       "id",
-      "team_name",
-      "team_logo",
-      "team_manager",
-      "founded",
-      "stadium",
+      "fixture_date",
+      "venue",
+      "time",
+      "homeTeam",
+      "homeTeamLogo",
+      "awayTeam",
+      "awayTeamLogo",
+      "status",
     ],
     showProperties: [
       "id",
-      "team_name",
-      "team_logo",
-      "team_manager",
-      "founded",
-      "stadium",
+      "homeTeam",
+      "homeTeamLogo",
+      "awayTeam",
+      "awayTeamLogo",
+      "fixture_date",
+      "time",
+      "venue",
+      "status",
+      "scoreHome",
+      "scoreAway",
+      "createdAt",
+      "updatedAt",
     ],
     properties: {
       id: { isVisible: false, position: 1 },
-      team_name: { isTitle: true, position: 2 },
-      team_logo: {
+      fixture_date: { isVisible: true, position: 2 },
+      venue: { isVisible: true, position: 3 },
+      time: { isVisible: true, position: 4 },
+      homeTeam: { isVisible: true, position: 5 },
+      homeTeamLogo: {
         type: "file",
         isVisible: { list: true, edit: true, filter: false, show: true },
-        position: 3,
+        position: 6,
       },
-      team_details: {
-        type: "textarea",
-        isVisible: { list: false, edit: true, filter: false, show: true },
-        props: { rows: 6 },
-        position: 7,
+      awayTeam: { isVisible: true, position: 7 },
+      awayTeamLogo: {
+        type: "file",
+        isVisible: { list: true, edit: true, filter: false, show: true },
+        position: 8,
       },
-      team_manager: { isVisible: true, position: 6 },
-      founded: { isVisible: true, position: 4 },
-      stadium: { isVisible: true, position: 5 },
-      createdAt: { isVisible: false, position: 8 },
-      updatedAt: { isVisible: false, position: 9 },
-      imageKey: { isVisible: false, position: 10 },
-      bucket: { isVisible: false, position: 11 },
-      mime: { isVisible: false, position: 12 },
+      status: { isVisible: true, position: 9 },
+      scoreHome: { isVisible: true, position: 10 },
+      scoreAway: { isVisible: true, position: 11 },
+      createdAt: { isVisible: false, position: 12 },
+      updatedAt: { isVisible: false, position: 13 },
+      // Image metadata (hidden)
+      imageKey1: { isVisible: false, position: 14 },
+      bucket1: { isVisible: false, position: 15 },
+      mime1: { isVisible: false, position: 16 },
+      imageKey2: { isVisible: false, position: 17 },
+      bucket2: { isVisible: false, position: 18 },
+      mime2: { isVisible: false, position: 19 },
     },
   },
   features: [
+    // Home team logo upload
     uploadFeature({
       componentLoader,
       provider: { local: localProvider },
       properties: {
-        file: "team_logo",
-        key: "imageKey",
-        bucket: "bucket",
-        mimeType: "mime",
+        file: "homeTeamLogo",
+        key: "imageKey1",
+        bucket: "bucket1",
+        mimeType: "mime1",
+        filePath: "filePath1",
+        filesToDelete: "filesToDelete1",
+      },
+      validation: {
+        mimeTypes: ["image/png", "image/jpeg"],
+      },
+    }),
+    // Away team logo upload
+    uploadFeature({
+      componentLoader,
+      provider: { local: localProvider },
+      properties: {
+        file: "awayTeamLogo",
+        key: "imageKey2",
+        bucket: "bucket2",
+        mimeType: "mime2",
+        filePath: "filePath2",
+        filesToDelete: "filesToDelete2",
       },
       validation: {
         mimeTypes: ["image/png", "image/jpeg"],
@@ -103,6 +418,8 @@ export const gameTeamResource = {
     }),
   ],
 };
+
+
 export const playerResource = {
   resource: Player,
   options: {
@@ -132,6 +449,7 @@ export const playerResource = {
     listProperties: [
       "id",
       "name",
+      "img",
       "position",
       "number",
       "team_id",
