@@ -47,20 +47,18 @@ const Player = sequelize.define(
       allowNull: true,
     },
     stats: {
-      type: DataTypes.JSONB,
-      allowNull: true,
-      defaultValue: {
-        matches: 0,
-        goals: 0,
-        assists: 0,
-        yellowCards: 0,
-        redCards: 0,
+        type: DataTypes.TEXT,
+        allowNull: true,
+        // defaultValue: JSON.stringify({
+        //   matches: 0,
+        //   goals: 0,
+        //   assists: 0,
+        //   yellowCards: 0,
+        //   redCards: 0
+        // }),
       },
-    },
     achievements: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true,
-      defaultValue: [],
+        type: DataTypes.TEXT,
     },
     imageKey: {
       type: DataTypes.STRING,
@@ -74,7 +72,7 @@ const Player = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    teamId: {
+    team_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -84,13 +82,14 @@ const Player = sequelize.define(
     },
   },
   {
-    tableName: "football_players",
+    tableName: "Players",
     timestamps: true,
+    underscored: true,
   }
 );
 
 // Associations
-Team.hasMany(Player, { foreignKey: "teamId", onDelete: "CASCADE" });
-Player.belongsTo(Team, { foreignKey: "teamId" });
+Team.hasMany(Player, { foreignKey: "team_id", onDelete: "CASCADE" });
+Player.belongsTo(Team, { foreignKey: "team_id", as: "team" });
 
 export default Player;

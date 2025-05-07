@@ -8,17 +8,16 @@ import {
   NewsletterResource,
 } from "./user.Resourse.js";
 import { componentLoader, Components } from "../components/componentsLoader.js";
-import { sponserResource } from "./blog.Resource.js";
-import { blogResource } from "./blog.Resource.js";
-import { highlightResource } from "./blog.Resource.js";
-import { gameTeamResource } from "./games.Resource.js";
-
+import { sponserResource,blogResource,highlightResource } from "./blog.Resource.js";
+import { gameTeamResource,playerResource,recordResource} from "./games.Resource.js";
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // Initialize AdminJS
 const admin = new AdminJS({
   resources: [
     gameTeamResource,
+    playerResource,
+    recordResource,
     // GameFixtureResource,
     // FixtureResource,
     // ResultFixtureResource,

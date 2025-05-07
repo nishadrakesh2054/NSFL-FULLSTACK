@@ -49,8 +49,9 @@ const Team = sequelize.define(
     },
   },
   {
-    tableName: "football_teams",
+    tableName: "Teams",
     timestamps: true,
+    underscored: true,
   }
 );
 

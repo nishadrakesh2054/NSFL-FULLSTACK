@@ -9,7 +9,8 @@ import { componentLoader } from "../components/componentsLoader.js";
 // import GameFixture from "../models/fixture/gameFixture.Model.js";
 // import TableFixture from "../models/fixture/tableFixture.Model.js";
 import Team from "../models/fixture/team.Model.js";
-// import Player from "../models/fixture/player.Model.js";
+import Player from "../models/fixture/player.Model.js";
+import Record from "../models/fixture/record.Model.js";
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // const componentLoader = new ComponentLoader();
@@ -63,7 +64,7 @@ export const gameTeamResource = {
       "stadium",
     ],
     properties: {
-      id: { isVisible: true, position: 1 },
+      id: { isVisible: false, position: 1 },
       team_name: { isTitle: true, position: 2 },
       team_logo: {
         type: "file",
@@ -101,6 +102,203 @@ export const gameTeamResource = {
       },
     }),
   ],
+};
+export const playerResource = {
+  resource: Player,
+  options: {
+    navigation: { name: "Players", icon: "User" },
+    actions: {
+      list: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      edit: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      new: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      show: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      delete: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+    },
+    listProperties: [
+      "id",
+      "name",
+      "position",
+      "number",
+      "team_id",
+      "nationality",
+      "age",
+    ],
+    showProperties: [
+      "id",
+      "name",
+      "img",
+      "position",
+      "number",
+      "team_id",
+      "nationality",
+      "age",
+      "height",
+      "weight",
+      "bio",
+      "stats",
+      "achievements",
+    ],
+    properties: {
+      id: { isVisible: false, position: 1 },
+      name: { isTitle: true, position: 2 },
+      img: {
+        type: "file",
+        isVisible: { list: false, edit: true, filter: false, show: true },
+        position: 3,
+      },
+      position: {
+        isVisible: true,
+        position: 4,
+        availableValues: [
+          { value: "Goalkeeper", label: "Goalkeeper" },
+          { value: "Defender", label: "Defender" },
+          { value: "Midfielder", label: "Midfielder" },
+          { value: "Forward", label: "Forward" },
+        ],
+      },
+      number: { isVisible: true, position: 5 },
+      team_id: {
+        isVisible: true,
+        position: 6,
+        reference: "Teams",
+      },
+      nationality: { isVisible: true, position: 7 },
+      age: { isVisible: true, position: 8 },
+      height: { isVisible: false, position: 9 },
+      weight: { isVisible: false, position: 10 },
+      bio: {
+        type: "textarea",
+        isVisible: { list: false, edit: true, filter: false, show: true },
+        props: { rows: 6 },
+        position: 11,
+      },
+      stats: {
+        isVisible: { list: false, edit: true, filter: false, show: true },
+        position: 12,
+      },
+      achievements: {
+        type: "textarea",
+        isVisible: { list: false, edit: true, filter: false, show: true },
+        position: 13,
+      },
+      imageKey: { isVisible: false, position: 14 },
+      bucket: { isVisible: false, position: 15 },
+      mime: { isVisible: false, position: 16 },
+      createdAt: { isVisible: false, position: 17 },
+      updatedAt: { isVisible: false, position: 18 },
+    },
+  },
+  features: [
+    uploadFeature({
+      componentLoader,
+      provider: { local: localProvider },
+      properties: {
+        file: "img",
+        key: "imageKey",
+        bucket: "bucket",
+        mimeType: "mime",
+      },
+      validation: {
+        mimeTypes: ["image/png", "image/jpeg"],
+      },
+    }),
+  ],
+};
+export const recordResource = {
+  resource: Record,
+  options: {
+    navigation: { name: "Records", icon: "BarChart2" },
+    actions: {
+      list: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      edit: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      new: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      show: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      delete: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+    },
+    listProperties: [
+      "id",
+      "player_id",
+      "matches",
+      "goals",
+      "assists",
+      "yellow_cards",
+      "red_cards",
+    ],
+    showProperties: [
+      "id",
+      "player_id",
+      "matches",
+      "goals",
+      "assists",
+      "yellow_cards",
+      "red_cards",
+    ],
+    properties: {
+      id: { isVisible: false, position: 1 },
+      player_id: {
+        isVisible: true,
+        position: 2,
+        reference: "Players",
+      },
+      matches: {
+        isVisible: true,
+        position: 3,
+        type: "number",
+      },
+      goals: {
+        isVisible: true,
+        position: 4,
+        type: "number",
+      },
+      assists: {
+        isVisible: true,
+        position: 5,
+        type: "number",
+      },
+      yellow_cards: {
+        isVisible: true,
+        position: 6,
+        type: "number",
+      },
+      red_cards: {
+        isVisible: true,
+        position: 7,
+        type: "number",
+      },
+      createdAt: { isVisible: false, position: 8 },
+      updatedAt: { isVisible: false, position: 9 },
+    },
+  },
 };
 
 // export const GameFixtureResource = {
