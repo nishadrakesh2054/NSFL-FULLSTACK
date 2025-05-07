@@ -21,7 +21,7 @@ interface TeamStanding {
   goalsAgainst: number;
   goalDifference: number;
   points: number;
-  form?: string[]; // Array of last 5 match results (W, D, L)
+  form?: string[]; 
   promotion?: boolean;
   relegation?: boolean;
   homeRecord?: {

@@ -183,7 +183,7 @@ const TeamFixture = () => {
       name: "Thunderbolts",
       logo: "/image/img-04.png",
     },
-    date: "2025-05-06T19:00:00",
+    date: "2025-05-10T19:00:00",
   });
 
   const [countdown, setCountdown] = useState({
