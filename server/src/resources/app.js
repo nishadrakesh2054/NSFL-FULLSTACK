@@ -1,6 +1,7 @@
 import AdminJSExpress from "@adminjs/express";
 import AdminJSSequelize from "@adminjs/sequelize";
 import AdminJS from "adminjs";
+import importExportFeature from "@adminjs/import-export";
 import authenticate from "./authenticateUser.js";
 import {
   userResource,
@@ -8,27 +9,35 @@ import {
   NewsletterResource,
 } from "./user.Resourse.js";
 import { componentLoader, Components } from "../components/componentsLoader.js";
-import { sponserResource,blogResource,highlightResource } from "./blog.Resource.js";
-import { gameTeamResource,playerResource,recordResource,matchFixtureResource,tableResource} from "./games.Resource.js";
+import {
+  sponserResource,
+  blogResource,
+  highlightResource,
+} from "./blog.Resource.js";
+import {
+  gameTeamResource,
+  playerResource,
+  recordResource,
+  matchFixtureResource,
+  tableResource,
+} from "./games.Resource.js";
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // Initialize AdminJS
 const admin = new AdminJS({
   resources: [
+    {
+      ...NewsletterResource,
+      features: [importExportFeature({ componentLoader })],
+    },
     tableResource,
     gameTeamResource,
     playerResource,
     recordResource,
     matchFixtureResource,
-    // GameFixtureResource,
-    // FixtureResource,
-    // ResultFixtureResource,
-    // TableFixtureResource,
-    // gameTeamResource,
-    // playerResource,
     ContactResource,
     userResource,
-    NewsletterResource,
+
     sponserResource,
     blogResource,
     highlightResource,
@@ -49,7 +58,6 @@ const admin = new AdminJS({
 });
 
 admin.watch();
-// Set up the authentication middleware
 const auth = {
   authenticate,
   cookieName: "adminjs",

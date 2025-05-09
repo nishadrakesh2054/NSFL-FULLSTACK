@@ -12,6 +12,7 @@ const localProvider = {
   bucket: "public/uploads",
   opts: {
     baseUrl: "/uploads",
+    delete:false
   },
 };
 
@@ -94,221 +95,257 @@ export const sponserResource = {
       validation: {
         mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp"],
       },
+ 
+      uploadPath: (record, filename) => {
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+        const ext = filename.split(".").pop();
+        return `sponsers/${filename.split(".")[0]}-${uniqueSuffix}.${ext}`;
+      },
+      uploadActions: {
+        replace: false,
+        delete: false,
+      },
     }),
   ],
 };
 
-
-
 export const blogResource = {
-    resource: Blog,
-    options: {
-      navigation: { name: "Blogs", icon: "FileText" },
-      actions: {
-        list: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        edit: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        new: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        show: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        delete: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
+  resource: Blog,
+  options: {
+    navigation: { name: "Blogs", icon: "FileText" },
+    actions: {
+      list: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
       },
-      listProperties: ["id", "title", "category", "image", "views", "date"],
-      showProperties: [
-        "id",
-        "title",
-        "content",
-        "image",
-        "category",
-        "views",
-        "date",
-        "createdAt",
-      ],
-      properties: {
-        id: {
-          position: 1,
-          isVisible: { list: true, filter: true, show: true, edit: false },
-        },
-        title: {
-          position: 2,
-          isVisible: { list: true, filter: true, show: true, edit: true },
-        },
-        content: {
-          position: 3,
-          type: "richtext",
-          isVisible: { list: false, filter: false, show: true, edit: true },
-        },
-        image: {
-          position: 4,
-          type: "file",
-          isVisible: { list: false, filter: false, show: false, edit: true },
-        },
-        category: {
-          position: 5,
-          isVisible: { list: true, filter: true, show: true, edit: true },
-        },
-        views: {
-          position: 6,
-          isVisible: { list: true, filter: true, show: true, edit: false },
-        },
-        date: {
-          position: 7,
-          isVisible: { list: true, filter: true, show: true, edit: true },
-        },
-        imageKey: {
-          isVisible: false,
-        },
-        bucket: {
-          isVisible: false,
-        },
-        mime: {
-          isVisible: false,
-        },
-        createdAt: {
-          position: 8,
-          isVisible: { list: false, filter: false, show: true, edit: false },
-        },
-        updatedAt: {
-          isVisible: false,
-        },
+      edit: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      new: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      show: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      delete: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
       },
     },
-    features: [
-      uploadFeature({
-        componentLoader,
-        provider: { local: localProvider },
-        properties: {
-          file: "image",
-          key: "imageKey",
-          bucket: "bucket",
-          mimeType: "mime",
-        },
-        validation: {
-          mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp"],
-        },
-      }),
+    listProperties: ["id", "title", "category", "image", "views", "date"],
+    showProperties: [
+      "id",
+      "title",
+      "content",
+      "image",
+      "category",
+      "views",
+      "date",
+      "createdAt",
     ],
-  };
-
-
-  export const highlightResource = {
-    resource: Highlight,
-    options: {
-      navigation: { name: "Media", icon: "PlayCircle" },
-      actions: {
-        list: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        edit: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        new: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        show: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
-        delete: {
-          isAccessible: ({ currentAdmin }) =>
-            currentAdmin && currentAdmin.role === "Admin",
-        },
+    properties: {
+      id: {
+        position: 1,
+        isVisible: { list: true, filter: true, show: true, edit: false },
       },
-      listProperties: ["id", "title", "image", "date", "views", "duration"],
-      showProperties: [
-        "id",
-        "title",
-        "description",
-        "image",
-        "videoUrl",
-        "duration",
-        "date",
-        "views",
-        "createdAt",
-      ],
-      properties: {
-        id: {
-          position: 1,
-          isVisible: { list: true, filter: true, show: true, edit: false },
+      title: {
+        position: 2,
+        isVisible: { list: true, filter: true, show: true, edit: true },
+      },
+      content: {
+        position: 3,
+        type: "richtext",
+        custom: {
+          quill: {
+            modules: {
+              toolbar: [
+                ["bold", "italic", "underline", "strike"],
+                ["blockquote", "code-block"],
+                [{ header: 1 }, { header: 2 }],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{ script: "sub" }, { script: "super" }],
+                [{ indent: "-1" }, { indent: "+1" }],
+                [{ direction: "rtl" }],
+                [{ size: ["small", false, "large", "huge"] }],
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                [{ color: [] }, { background: [] }],
+                [{ font: [] }],
+                [{ align: [] }],
+                ["clean"],
+              ],
+            },
+            theme: "snow",
+            placeholder: "Type your content here...",
+            bounds: ".admin-bro_Edit",
+          },
         },
-        title: {
-          position: 2,
-          isVisible: { list: true, filter: true, show: true, edit: true },
-        },
-        description: {
-          position: 3,
-          type: "textarea",
-          isVisible: { list: false, show: true, edit: true },
-        },
-        image: {
-          position: 4,
-          type: "file",
-          isVisible: { list: false, show: false, edit: true },
-        },
-        videoUrl: {
-          position: 5,
-          isVisible: { list: false, show: true, edit: true },
-        },
-        duration: {
-          position: 6,
-          isVisible: { list: true, show: true, edit: true },
-        },
-        date: {
-          position: 7,
-          isVisible: { list: true, filter: true, show: true, edit: true },
-        },
-        views: {
-          position: 8,
-          isVisible: { list: true, show: true, edit: false },
-        },
-        imageKey: {
-          isVisible: false,
-        },
-        bucket: {
-          isVisible: false,
-        },
-        mime: {
-          isVisible: false,
-        },
-        createdAt: {
-          position: 9,
-          isVisible: { list: false, show: true, edit: false },
-        },
-        updatedAt: {
-          isVisible: false,
-        },
+        isVisible: { list: false, filter: false, show: true, edit: true },
+      },
+      image: {
+        position: 4,
+        type: "file",
+        isVisible: { list: false, filter: false, show: false, edit: true },
+      },
+      category: {
+        position: 5,
+        isVisible: { list: true, filter: true, show: true, edit: true },
+      },
+      views: {
+        position: 6,
+        isVisible: { list: true, filter: true, show: true, edit: false },
+      },
+      date: {
+        position: 7,
+        isVisible: { list: true, filter: true, show: true, edit: true },
+      },
+      imageKey: {
+        isVisible: false,
+      },
+      bucket: {
+        isVisible: false,
+      },
+      mime: {
+        isVisible: false,
+      },
+      createdAt: {
+        position: 8,
+        isVisible: { list: false, filter: false, show: true, edit: false },
+      },
+      updatedAt: {
+        isVisible: false,
       },
     },
-    features: [
-      uploadFeature({
-        componentLoader,
-        provider: { local: localProvider },
-        properties: {
-          file: "image",
-          key: "imageKey",
-          bucket: "bucket",
-          mimeType: "mime",
-        },
-        validation: {
-          mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp"],
-        },
-      }),
-    ],
-  };
+  },
+  features: [
+    uploadFeature({
+      componentLoader,
+      provider: { local: localProvider },
+      properties: {
+        file: "image",
+        key: "imageKey",
+        bucket: "bucket",
+        mimeType: "mime",
+      },
+      validation: {
+        mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp"],
+      },
+      uploadPath(record, filename) {
+        return `${filename}`;
+      },
+    }),
+  ],
+};
 
+export const highlightResource = {
+  resource: Highlight,
+  options: {
+    navigation: { name: "Media", icon: "PlayCircle" },
+    actions: {
+      list: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      edit: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      new: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      show: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+      delete: {
+        isAccessible: ({ currentAdmin }) =>
+          currentAdmin && currentAdmin.role === "Admin",
+      },
+    },
+    listProperties: ["id", "title", "image", "date", "views", "duration"],
+    showProperties: [
+      "id",
+      "title",
+      "description",
+      "image",
+      "videoUrl",
+      "duration",
+      "date",
+      "views",
+      "createdAt",
+    ],
+    properties: {
+      id: {
+        position: 1,
+        isVisible: { list: true, filter: true, show: true, edit: false },
+      },
+      title: {
+        position: 2,
+        isVisible: { list: true, filter: true, show: true, edit: true },
+      },
+      description: {
+        position: 3,
+        type: "textarea",
+        isVisible: { list: false, show: true, edit: true },
+      },
+      image: {
+        position: 4,
+        type: "file",
+        isVisible: { list: false, show: false, edit: true },
+      },
+      videoUrl: {
+        position: 5,
+        isVisible: { list: false, show: true, edit: true },
+      },
+      duration: {
+        position: 6,
+        isVisible: { list: true, show: true, edit: true },
+      },
+      date: {
+        position: 7,
+        isVisible: { list: true, filter: true, show: true, edit: true },
+      },
+      views: {
+        position: 8,
+        isVisible: { list: true, show: true, edit: false },
+      },
+      imageKey: {
+        isVisible: false,
+      },
+      bucket: {
+        isVisible: false,
+      },
+      mime: {
+        isVisible: false,
+      },
+      createdAt: {
+        position: 9,
+        isVisible: { list: false, show: true, edit: false },
+      },
+      updatedAt: {
+        isVisible: false,
+      },
+    },
+  },
+  features: [
+    uploadFeature({
+      componentLoader,
+      provider: { local: localProvider },
+      properties: {
+        file: "image",
+        key: "imageKey",
+        bucket: "bucket",
+        mimeType: "mime",
+      },
+      validation: {
+        mimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp"],
+      },
+      uploadPath(record, filename) {
+        return `${filename}`;
+      },
+    }),
+  ],
+};

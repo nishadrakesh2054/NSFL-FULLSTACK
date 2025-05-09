@@ -1,199 +1,216 @@
 import express from "express";
+import Team from "../models/fixture/team.Model.js";
+import Player from "../models/fixture/player.Model.js";
 
 const router = express.Router();
-
-import Fixture from "../models/fixture/dateFixtures.Model.js";
-import GameFixture from "../models/fixture/gameFixture.Model.js";
-import ResultFixture from "../models/fixture/resultFixture.Model.js";
-import TableFixture from "../models/fixture/tableFixture.Model.js";
-import Player from "../models/fixture/player.Model.js";
-import Team from "../models/fixture/team.Model.js";
-
-const baseURL = "http://localhost:3000/uploads/";
-
-router.get("/fixtures", async (req, res) => {
-  try {
-    // Fetch all fixtures with associated matches
-    const gameFixtures = await GameFixture.findAll({
-      include: {
-        model: Fixture,
-        attributes: ["date"], // Include only the date attribute
-      },
-    });
-
-    // Group matches by date
-    const groupedFixtures = gameFixtures.reduce((acc, match) => {
-      const date = match.Fixture.date;
-      if (!acc[date]) {
-        acc[date] = { date, matches: [] };
-      }
-
-      // Construct image URLs based on the folder structure
-      const image1URL = match.imageKey1 ? `${baseURL}${match.imageKey1}` : null;
-      const image2URL = match.imageKey2 ? `${baseURL}${match.imageKey2}` : null;
-
-      acc[date].matches.push({
-        id: match.id,
-        team1: match.team_1,
-        team2: match.team_2,
-        time: match.time,
-        location: match.location,
-        image1: image1URL,
-        image2: image2URL,
-      });
-      return acc;
-    }, {});
-
-    // Convert grouped object to array
-    const fixtures = Object.values(groupedFixtures);
-
-    res.status(200).json({
-      fixtures,
-      message: "All fixtures fetched successfully",
-    });
-  } catch (error) {
-    console.error("Error fetching fixtures:", error);
-    res.status(500).json({ error: "Failed to fetch fixtures" });
-  }
-});
-
-router.get("/results", async (req, res) => {
-  try {
-    const results = await ResultFixture.findAll({
-      include: {
-        model: Fixture,
-        attributes: ["date"], // Include only the date attribute
-      },
-    });
-
-    // Format results into a consistent structure
-    const formattedResults = results.map((result) => ({
-      id: result.id,
-      team1: result.team_1,
-      team2: result.team_2,
-      score: result.score,
-      time: result.time,
-      location: result.location,
-      date: result.Fixture?.date || null,
-      image1: result.imageKey1 ? `${baseURL}${result.imageKey1}` : null,
-      image2: result.imageKey2 ? `${baseURL}${result.imageKey2}` : null,
-    }));
-
-    res.status(200).json({
-      results: formattedResults,
-      message: "All results fetched successfully",
-    });
-  } catch (error) {
-    console.error("Error fetching results:", error);
-    res.status(500).json({ error: "Failed to fetch results" });
-  }
-});
-
-router.get("/tables", async (req, res) => {
-  try {
-    const tables = await TableFixture.findAll();
-    res.status(200).json({ success: true, tables });
-  } catch (error) {
-    console.error("Error fetching tables:", error);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
-router.get("/players", async (req, res) => {
-  try {
-    const players = await Player.findAll({
-      include: [
-        {
-          model: Team,
-          attributes: ["team_name", "team_logo", "team_details"],
-        },
-      ],
-    });
-
-    const formattedPlayers = players.map((player) => ({
-      id: player.id,
-      player_name: player.player_name,
-      position: player.position,
-      address: player.address,
-      age: player.age,
-      weight: player.weight,
-      height: player.height,
-      goalsScored: player.goalsScored,
-      matchesPlayed: player.matchesPlayed,
-      player_image: player.imageKey ? `${baseURL}${player.imageKey}` : null,
-      teamId: player.teamId,
-
-      team: {
-        team_name: player.Team.team_name,
-        team_logo: player.Team.team_logo
-          ? `${baseURL}${player.Team.team_logo}`
-          : null,
-        team_details: player.Team.team_details,
-      },
-    }));
-
-    res.status(200).json({
-      success: true,
-      players: formattedPlayers,
-    });
-  } catch (error) {
-    console.error("Error fetching players:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server error while fetching players.",
-    });
-  }
-});
-
+// Helper function for consistent error responses
+const handleError = (res, error, entity) => {
+  console.error(`Error fetching ${entity}:`, error);
+  res.status(500).json({
+    success: false,
+    error: `Failed to fetch ${entity}`,
+  });
+};
+// GET all teams
 router.get("/teams", async (req, res) => {
   try {
     const teams = await Team.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["team_name", "ASC"]],
+    });
+
+    if (!teams.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No teams found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: teams.length,
+      data: teams,
+    });
+  } catch (error) {
+    handleError(res, error, "teams");
+  }
+});
+
+// GET single team by ID
+router.get("/teams/:id", async (req, res) => {
+  try {
+    const team = await Team.findByPk(req.params.id, {
       include: [
         {
           model: Player,
+          as: "Players",
           attributes: [
             "id",
-            "player_name",
+            "name",
             "position",
-            "age",
-            "height",
-            "weight",
-            "goalsScored",
-            "matchesPlayed",
-            "player_image",
+            "number",
+            "img",
+            "imageKey",
+            "bucket",
+            "mime",
           ],
         },
       ],
     });
 
-    const formattedTeams = teams.map((team) => ({
-      team_name: team.team_name,
-      team_details: team.team_details,
-      team_logo: team.imageKey ? `${baseURL}${team.imageKey}` : null,
-      players: team.Players.map((player) => ({
-        id: player.id,
-        player_name: player.player_name,
-        position: player.position,
-        age: player.age,
-        height: player.height,
-        weight: player.weight,
-        goalsScored: player.goalsScored,
-        matchesPlayed: player.matchesPlayed,
-        player_image: player.imageKey ? `${baseURL}${player.imageKey}` : null,
-      })),
-    }));
+    if (!team) {
+      return res.status(404).json({
+        success: false,
+        error: `Team not found with id ${req.params.id}`,
+      });
+    }
 
     res.status(200).json({
       success: true,
-      teams: formattedTeams,
+      data: team,
     });
   } catch (error) {
-    console.error("Error fetching teams:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server error while fetching teams.",
-    });
+    handleError(res, error, "team");
   }
 });
 
+// GET specific player from a specific team
+router.get("/teams/:teamId/players/:playerId", async (req, res) => {
+  try {
+    const { teamId, playerId } = req.params;
+
+    // First verify the team exists
+    const team = await Team.findByPk(teamId);
+    if (!team) {
+      return res.status(404).json({
+        success: false,
+        error: `Team not found with id ${teamId}`,
+      });
+    }
+
+    // Then find the player that belongs to this team
+    const player = await Player.findOne({
+      where: {
+        id: playerId,
+        team_id: teamId, // Ensure the player belongs to the specified team
+      },
+      include: [
+        {
+          model: Team,
+          as: "team", // Make sure this matches your association alias
+          attributes: [
+            "id",
+            "team_name",
+            "team_logo",
+            "imageKey",
+            "bucket",
+            "mime",
+          ],
+        },
+      ],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+
+    if (!player) {
+      return res.status(404).json({
+        success: false,
+        error: `Player not found with id ${playerId} in team ${teamId}`,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: player,
+    });
+  } catch (error) {
+    handleError(res, error, "team player");
+  }
+});
+
+// GET players by team ID(yo team maa total player kati xa show garx)
+router.get("/teams/:id/players", async (req, res) => {
+  try {
+    const players = await Player.findAll({
+      where: { team_id: req.params.id },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["number", "ASC"]],
+    });
+
+    if (!players.length) {
+      return res.status(404).json({
+        success: false,
+        message: `No players found for team ${req.params.id}`,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: players.length,
+      data: players,
+    });
+  } catch (error) {
+    handleError(res, error, "team players");
+  }
+});
+
+// GET single player by ID
+router.get("/players/:id", async (req, res) => {
+  try {
+    const player = await Player.findByPk(req.params.id, {
+      include: [
+        {
+          model: Team,
+          as: "team",
+          attributes: ["id", "team_name", "team_logo"],
+        },
+      ],
+    });
+
+    if (!player) {
+      return res.status(404).json({
+        success: false,
+        error: `Player not found with id ${req.params.id}`,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: player,
+    });
+  } catch (error) {
+    handleError(res, error, "player");
+  }
+});
+
+// GET all players
+router.get("/players", async (req, res) => {
+  try {
+    const players = await Player.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: [
+        {
+          model: Team,
+          as: "team",
+          attributes: ["id", "team_name", "team_logo"],
+        },
+      ],
+      order: [["number", "ASC"]],
+    });
+
+    if (!players.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No players found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: players.length,
+      data: players,
+    });
+  } catch (error) {
+    handleError(res, error, "players");
+  }
+});
 export default router;

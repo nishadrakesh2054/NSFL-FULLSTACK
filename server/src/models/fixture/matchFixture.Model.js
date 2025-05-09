@@ -27,11 +27,13 @@ const matchFixture = sequelize.define(
       type: DataTypes.STRING,
       field: "image2",
     },
+
     fixture_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
 
     },
+
     time: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -42,9 +44,9 @@ const matchFixture = sequelize.define(
      
     },
     status: {
-      type: DataTypes.ENUM("upcoming", "completed", "live"),
+      type: DataTypes.ENUM("upcoming", "completed", "today"),
       defaultValue: "upcoming",
-      allowNull: false,
+      allowNull: true,
     },
     scoreHome: {
       type: DataTypes.INTEGER,
@@ -80,5 +82,25 @@ const matchFixture = sequelize.define(
     paranoid: true,
   }
 );
+
+
+
+
+// Add virtual fields for status updates
+matchFixture.prototype.isToday = function () {
+    const today = new Date().toISOString().split("T")[0];
+    return this.fixture_date === today;
+  };
+  
+  matchFixture.prototype.isCompleted = function () {
+    return this.status === "completed";
+  };
+  
+  matchFixture.prototype.isLive = function () {
+    if (this.status === "completed") return false;
+    const currentDate = new Date();
+    const fixtureDate = new Date(`${this.fixture_date}T${this.time}`);
+    return fixtureDate <= currentDate && !this.isCompleted();
+  };
 
 export default matchFixture;

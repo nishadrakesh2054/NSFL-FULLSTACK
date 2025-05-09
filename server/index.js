@@ -17,8 +17,11 @@ import session from "express-session";
 
 import adminRouter from "./src/resources/app.js";
 import sequelize from "./src/db/index.js";
-// import gameFixture from "./src/routes/fixture.Route.js";
+import Game from "./src/routes/fixture.Route.js";
 import Contact from "./src/routes/contact.Route.js";
+import News from "./src/routes/blog.Route.js";
+import Table from "./src/routes/table.Route.js";
+import Match from './src/routes/match.Route.js'
 
 // Initialize express app
 const app = express();
@@ -96,7 +99,10 @@ app.use(express.urlencoded({ extended: true }));
 // API routes with rate limiting
 app.use("/api/", apiLimiter);
 app.use("/api", Contact);
-// app.use("/api", gameFixture);
+app.use("/api", News);
+app.use("/api", Game);
+app.use("/api", Table);
+app.use('/api',Match)
 
 // Health check endpoint
 app.get("/api/test", (req, res) => {
@@ -109,7 +115,7 @@ const port = process.env.PORT || 3000;
 const startServer = async () => {
   try {
     // Initialize database
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
 
     // Start server
     const server = app.listen(port, () => {

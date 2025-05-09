@@ -4,20 +4,14 @@ import sequelize from "../../db/index.js";
 const Table = sequelize.define(
   "Table",
   {
-    position: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-    },
+ 
     team_name: {
       type: DataTypes.STRING,
       allowNull: false,
-  
     },
     team_logo: {
       type: DataTypes.STRING,
       allowNull: true,
-      
     },
     played: {
       type: DataTypes.INTEGER,
@@ -43,26 +37,23 @@ const Table = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
-      
     },
     goalsAgainst: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
-   
     },
     goalDifference: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
-     
     },
     points: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        return this.getDataValue("won") * 3 + this.getDataValue("drawn");
-      },
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
     },
+
     // form: {
     //     type: DataTypes.TEXT,
     //     allowNull: true,
@@ -74,6 +65,7 @@ const Table = sequelize.define(
     //       this.setDataValue("form", JSON.stringify(value));
     //     },
     //   },
+
     promotion: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -120,37 +112,35 @@ const Table = sequelize.define(
     //       this.setDataValue("awayRecord", JSON.stringify(value));
     //     },
     //   },
+
     season: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "2023/24",
     },
-    matchday: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-    },
+
     imageKey: {
       type: DataTypes.STRING,
       allowNull: true,
     },
     bucket: {
-      type: DataTypes.STRING,   
+      type: DataTypes.STRING,
       allowNull: true,
     },
     mime: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    
-
   },
   {
     tableName: "tables",
     timestamps: true,
     paranoid: true,
-   
   }
 );
-
+// Hook to calculate points before saving
+Table.beforeSave((team) => {
+  team.points = (team.won * 3) + team.drawn;
+  team.goalDifference = team.goalsFor - team.goalsAgainst;
+});
 export default Table;

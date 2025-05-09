@@ -10,6 +10,69 @@ const hashPassword = async (password) => {
   return bcrypt.hash(password, saltRounds);
 };
 
+
+export const NewsletterResource = {
+    resource: Newsletter,
+    options: {
+      navigation: { name: "Newsletter", icon: "Mail" },
+      actions: {
+        list: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin &&
+            (currentAdmin.role === "Admin" ||
+              currentAdmin.role === "League Manager" ||
+              currentAdmin.role === "Finance Manager"),
+        },
+        edit: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin &&
+            (currentAdmin.role === "Admin" ||
+              currentAdmin.role === "League Manager" ||
+              currentAdmin.role === "Finance Manager"),
+        },
+        new: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin &&
+            (currentAdmin.role === "Admin" ||
+              currentAdmin.role === "League Manager" ||
+              currentAdmin.role === "Finance Manager"),
+        },
+        show: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin &&
+            (currentAdmin.role === "Admin" ||
+              currentAdmin.role === "League Manager" ||
+              currentAdmin.role === "Finance Manager"),
+        },
+        delete: {
+          isAccessible: ({ currentAdmin }) =>
+            currentAdmin &&
+            (currentAdmin.role === "Admin" ||
+              currentAdmin.role === "League Manager" ||
+              currentAdmin.role === "Finance Manager"),
+        },
+      },
+      showProperties: ["id", "email", "createdAt"],
+      properties: {
+        id: {
+          isVisible: { list: true, filter: true, show: true, edit: false },
+          position: 1,
+        },
+        email: {
+          position: 2,
+          isRequired: true,
+        },
+        createdAt: {
+          position: 3,
+          isVisible: { list: true, filter: true, show: true, edit: false },
+        },
+        updatedAt: {
+          isVisible: false,
+        },
+      },
+    },
+  };
+  
 export const ContactResource = {
   resource: Contact,
   options: {
@@ -60,6 +123,7 @@ export const ContactResource = {
       "status",
       "createdAt",
     ],
+    
 
     properties: {
       id: {
@@ -84,70 +148,14 @@ export const ContactResource = {
       },
       status: {
         position: 6,
+        availableValues: [
+            { value: "pending", label: "Pending" },
+            { value: "read", label: "Read" },
+            { value: "replied", label: "Replied" },
+          ],
       },
       createdAt: {
         position: 7,
-      },
-    },
-  },
-};
-export const NewsletterResource = {
-  resource: Newsletter,
-  options: {
-    navigation: { name: "Newsletter", icon: "Mail" },
-    actions: {
-      list: {
-        isAccessible: ({ currentAdmin }) =>
-          currentAdmin &&
-          (currentAdmin.role === "Admin" ||
-            currentAdmin.role === "League Manager" ||
-            currentAdmin.role === "Finance Manager"),
-      },
-      edit: {
-        isAccessible: ({ currentAdmin }) =>
-          currentAdmin &&
-          (currentAdmin.role === "Admin" ||
-            currentAdmin.role === "League Manager" ||
-            currentAdmin.role === "Finance Manager"),
-      },
-      new: {
-        isAccessible: ({ currentAdmin }) =>
-          currentAdmin &&
-          (currentAdmin.role === "Admin" ||
-            currentAdmin.role === "League Manager" ||
-            currentAdmin.role === "Finance Manager"),
-      },
-      show: {
-        isAccessible: ({ currentAdmin }) =>
-          currentAdmin &&
-          (currentAdmin.role === "Admin" ||
-            currentAdmin.role === "League Manager" ||
-            currentAdmin.role === "Finance Manager"),
-      },
-      delete: {
-        isAccessible: ({ currentAdmin }) =>
-          currentAdmin &&
-          (currentAdmin.role === "Admin" ||
-            currentAdmin.role === "League Manager" ||
-            currentAdmin.role === "Finance Manager"),
-      },
-    },
-    showProperties: ["id", "email", "createdAt"],
-    properties: {
-      id: {
-        isVisible: { list: true, filter: true, show: true, edit: false },
-        position: 1,
-      },
-      email: {
-        position: 2,
-        isRequired: true,
-      },
-      createdAt: {
-        position: 3,
-        isVisible: { list: true, filter: true, show: true, edit: false },
-      },
-      updatedAt: {
-        isVisible: false,
       },
     },
   },

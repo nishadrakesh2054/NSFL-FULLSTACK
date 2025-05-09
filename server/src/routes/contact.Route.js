@@ -2,11 +2,11 @@ import express from "express";
 import Contact from "../models/contact.Model.js";
 import Newsletter from "../models/subscribe.Model.js";
 
-import Joi from "joi";
+
 
 const router = express.Router();
 
-router.post("/submit", async (req, res) => {
+router.post("/contact", async (req, res) => {
     try {
       const { name, email, phone, message } = req.body;
   
@@ -40,13 +40,9 @@ router.post("/subscribe", async (req, res) => {
   
       const [subscriber, created] = await Newsletter.findOrCreate({
         where: { email },
-        defaults: { status: "active" },
       });
   
-      if (!created && subscriber.status === "unsubscribed") {
-        await subscriber.update({ status: "active" });
-      }
-  
+   
       res.status(201).json({
         success: true,
         message: "Successfully subscribed to newsletter",

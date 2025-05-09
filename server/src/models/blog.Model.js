@@ -30,7 +30,7 @@ const Blog = sequelize.define(
     mime: {
       type: DataTypes.STRING,
     },
-    
+
     date: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -48,7 +48,7 @@ const Blog = sequelize.define(
   },
   {
     timestamps: true,
-    tableName: "News", 
+    tableName: "News",
   }
 );
 
